@@ -19,6 +19,11 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.8.6",
-    "postcss-cli": "^7.1.2"
+    "postcss-cli": "^7.1.2",
+    "postcss": ">=7.0.36",
+    "glob-parent": ">=5.1.2",
+    "browserslist": ">=4.16.5",
+    "lodash": ">=4.17.21",
+    "y18n": ">=4.0.1"
   }
 }
