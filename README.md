@@ -1,6 +1,11 @@
-# Docsy Example
+# Corda Guide (under construction)
 
-[Docsy](https://github.com/google/docsy) is a Hugo theme for technical documentation sites, providing easy site navigation, structure, and more. This **Docsy Example Project** uses the Docsy theme, as well as providing a skeleton documentation structure for you to use. You can either copy this project and edit it with your own content, or use the theme in your projects like any other [Hugo theme](https://gohugo.io/themes/installing-and-using-themes/).
+This is a version of Corda Guide by SBI R3 Japan based on Hugo. It is not the official Corda Guide, which can be found [here](https://support.sbir3japan.co.jp/hc/ja).
+
+## Theme
+
+The theme in use is [Docsy](https://example.docsy.dev/).
+You can find detailed theme instructions in the Docsy user guide: https://docsy.dev/docs/.
 
 The theme is included in this project as a Git submodule:
 
@@ -9,87 +14,38 @@ The theme is included in this project as a Git submodule:
  a053131a4ebf6a59e4e8834a42368e248d98c01d themes/docsy (heads/master)
 ```
 
-This Docsy Example Project is hosted at [https://example.docsy.dev/](https://example.docsy.dev/).
-
-You can find detailed theme instructions in the Docsy user guide: https://docsy.dev/docs/
-
-This is not an officially supported Google product. This project is currently maintained.
-
-## Using the Docsy Example Project as a template
-
-A simple way to get started is to use this project as a template, which gives you a site project that is set up and ready to use. To do this: 
-
-1. Click **Use this template**.
-
-2. Select a name for your new project and click **Create repository from template**.
-
-3. Make your own local working copy of your new repo using git clone, replacing https://github.com/my/example.git with your repo’s web URL:
-
-```bash
-git clone --recurse-submodules --depth 1 https://github.com/my/example.git
-```
-
-You can now edit your own versions of the site’s source files.
-
 If you want to do SCSS edits and want to publish these, you need to install `PostCSS`
 
-```bash
-npm install
-```
 
 ## Running the website locally
 
-Building and running the site locally requires a recent `extended` version of [Hugo](https://gohugo.io).
-You can find out more about how to install Hugo for your environment in our
-[Getting started](https://www.docsy.dev/docs/getting-started/#prerequisites-and-installation) guide.
+### Requirements 
+- [Hugo](https://gohugo.io) in `extended` version.
+- [npm](https://nodejs.org/en/download/) 
 
-Once you've made your working copy of the site repo, from the repo root folder, run:
+### Build the project
+1. The first installation needs to download the theme submodule. So, please run: `themes/docsy && git submodule update -f --init`
+2. `npm install`
+3. `hugo server`
+4. Open your web browser and type `http://localhost:1313` .
 
-```
-hugo server
-```
+## Running into a Docker container
 
-## Running a container locally
+You can run docsy-example inside a [Docker](https://docs.docker.com/) container, the container runs with a volume bound to the root folder. This approach doesn't require you to install any dependencies other than [Docker Desktop](https://www.docker.com/products/docker-desktop) on Windows and Mac, and [Docker Compose](https://docs.docker.com/compose/install/)on Linux.
 
-You can run docsy-example inside a [Docker](https://docs.docker.com/)
-container, the container runs with a volume bound to the `docsy-example`
-folder. This approach doesn't require you to install any dependencies other
-than [Docker Desktop](https://www.docker.com/products/docker-desktop) on
-Windows and Mac, and [Docker Compose](https://docs.docker.com/compose/install/)
-on Linux.
-
-1. Build the docker image 
-
-   ```bash
-   docker-compose build
-   ```
-
-1. Run the built image
-
-   ```bash
-   docker-compose up
-   ```
+1. Build the docker image `docker-compose build`
+  
+1. Run the built image `docker-compose up`
 
    > NOTE: You can run both commands at once with `docker-compose up --build`.
 
-1. Verify that the service is working. 
+2. Verify that the service is working. Open your web browser and type `http://localhost:1313` .
 
-   Open your web browser and type `http://localhost:1313` in your navigation bar,
-   This opens a local instance of the docsy-example homepage. You can now make
-   changes to the docsy example and those changes will immediately show up in your
-   browser after you save.
-
-### Cleanup
+### Cleanup Docker container
 
 To stop Docker Compose, on your terminal window, press **Ctrl + C**. 
 
-To remove the produced images run:
-
-```console
-docker-compose rm
-```
-For more information see the [Docker Compose
-documentation](https://docs.docker.com/compose/gettingstarted/).
+To remove the produced images run `docker-compose rm`
 
 ## Troubleshooting
 

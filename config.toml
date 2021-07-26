@@ -53,7 +53,7 @@ id = "UA-00000000-0"
 
 [languages]
 [languages.jp]
-title = "Corda Guide"
+title = "Corda Guide記事"
 description = "A Docsy example site"
 languageName ="日本語"
 # Weight used for sorting.
