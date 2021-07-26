@@ -24,10 +24,16 @@ If you want to do SCSS edits and want to publish these, you need to install `Pos
 - [npm](https://nodejs.org/en/download/) 
 
 ### Build the project
-1. The first installation needs to download the theme submodule. So, please run: `themes/docsy && git submodule update -f --init`
-2. `npm install`
-3. `hugo server`
-4. Open your web browser and type `http://localhost:1313` .
+1. The first installation needs to download the theme submodule. So, please run: `git submodule update --init --recursive`
+2. Install some npm dependencies needed for this theme
+```
+npm install -D autoprefixer
+npm install -D postcss-cli
+npm install -D postcss
+```
+3. From the root folder run `npm install`
+4. Run the server with `hugo server`
+5. Open your web browser and type `http://localhost:1313` .
 
 ## Running into a Docker container
 
