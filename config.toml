@@ -196,10 +196,15 @@ taxonomyPageHeader = ["tags", "categories"] # set taxonomyPageHeader = [] to hid
 	icon = "fab fa-twitter"
         desc = "R3の最新情報をお届けします。"
 [[params.links.user]]
-	name = "Stack Overflow"
-	url = "https://stackoverflow.com/questions/tagged/corda"
-	icon = "fab fa-stack-overflow"
-        desc = "実用的な質問と厳選された回答"
+	name = "Medium"
+	url = "https://medium.com/corda-japan"
+	icon = "fab fa-medium"
+        desc = "記事一覧を作成しました。"
+[[params.links.user]]
+	name = "Facebook"
+	url = "https://www.facebook.com/R3DLTJapan/"
+	icon = "fab fa-facebook"
+        desc = "SBI R3 Japanの最新情報"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name = "GitHub"
@@ -211,5 +216,10 @@ taxonomyPageHeader = ["tags", "categories"] # set taxonomyPageHeader = [] to hid
 	url = "https://slack.corda.net/"
 	icon = "fab fa-slack"
         desc = "他のCorda開発者と日本語でチャットできる（#japaneseチャンネル）"
+[[params.links.developer]]
+	name = "Stack Overflow"
+	url = "https://stackoverflow.com/questions/tagged/corda"
+	icon = "fab fa-stack-overflow"
+        desc = "実用的な質問と厳選された回答"
 
 
