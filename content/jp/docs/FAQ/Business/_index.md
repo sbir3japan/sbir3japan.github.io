@@ -1,8 +1,8 @@
 ---
-title: "FAQ Business"
-linkTitle: "FAQ Business"
+title: "Business"
+linkTitle: "Business"
 description: >
-  Business FAQ 
+  FAQ Business 
 ---
 
 {{% pageinfo %}}

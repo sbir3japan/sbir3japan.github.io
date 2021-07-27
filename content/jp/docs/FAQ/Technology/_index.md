@@ -1,8 +1,8 @@
 ---
-title: "FAQ Technology"
-linkTitle: "FAQ Technology"
+title: "Technology"
+linkTitle: "Technology"
 description: >
-  Technical FAQ 
+  FAQ Technology 
 ---
 
 {{% pageinfo %}}

@@ -186,10 +186,15 @@ taxonomyPageHeader = ["tags", "categories"] # set taxonomyPageHeader = [] to hid
 # 	icon = "fa fa-envelope"
 #         desc = "Discussion and help from your fellow users"
 [[params.links.user]]
-	name ="Twitter"
+	name ="SBI-R3 Japan Twitter"
 	url = "https://twitter.com/R3Sbi"
 	icon = "fab fa-twitter"
-        desc = "ツイッターでフォローして最新情報をゲットしよう"
+        desc = "SBI R3 Japanの最新情報"
+[[params.links.user]]
+	name ="Corda Twitter"
+	url = "https://twitter.com/corda"
+	icon = "fab fa-twitter"
+        desc = "R3の最新情報をお届けします。"
 [[params.links.user]]
 	name = "Stack Overflow"
 	url = "https://stackoverflow.com/questions/tagged/corda"

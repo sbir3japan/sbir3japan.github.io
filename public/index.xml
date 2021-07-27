@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Corda – Welcome to Corda Guide</title>
+    <title>Corda Guide記事 – Welcome to Corda Guide</title>
     <link>/</link>
-    <description>Recent content in Welcome to Corda Guide on Corda</description>
+    <description>Recent content in Welcome to Corda Guide on Corda Guide記事</description>
     <generator>Hugo -- gohugo.io</generator>
     
 	  <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
