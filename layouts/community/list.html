@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+<a class="td-offset-anchor"></a>
+<section class="row td-box td-box--1 position-relative td-box--gradient td-box--height-auto">
+	<div class="container text-center td-arrow-down">
+		<span class="h4 mb-0">
+<h1>Cordaコミュニティに参加しよう</h1>
+
+<p>Cordaは、さまざまな業界のビジネス向けに、エンタープライズグレードの分散型台帳プラットフォームを開発することを目的としたオープンソースプロジェクトです。Cordaは、このビジョンの実装をコードベースで提供し、他の人が自由に構築したり、貢献したり、革新したりすることができます。
+</span>
+	</div>
+</section>
+{{ partial "community_links.html" . }}
+
+<div class="td-content">
+{{ .Content }}
+</div>
+
+{{ end }}

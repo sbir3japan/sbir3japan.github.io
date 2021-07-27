@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Corda Guide記事 – privacy</title>
+    <title>Corda – privacy</title>
     <link>/tags/privacy/</link>
-    <description>Recent content in privacy on Corda Guide記事</description>
+    <description>Recent content in privacy on Corda</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 11 Jul 2021 17:37:38 +0900</lastBuildDate>
     
@@ -16,10 +16,10 @@
     
     <item>
       <title>Docs: データのプライバシー確保</title>
-      <link>/docs/faq/technology/%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E7%A2%BA%E4%BF%9D/</link>
+      <link>/docs/faq/technology/privacy/</link>
       <pubDate>Sun, 11 Jul 2021 17:37:38 +0900</pubDate>
       
-      <guid>/docs/faq/technology/%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E7%A2%BA%E4%BF%9D/</guid>
+      <guid>/docs/faq/technology/privacy/</guid>
       <description>
         
         

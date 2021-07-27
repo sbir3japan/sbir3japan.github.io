@@ -121,9 +121,9 @@ version = "0.0"
 url_latest_version = "https://example.com"
 
 # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-github_repo = "https://github.com/google/docsy-example"
+#github_repo = "https://github.com/google/docsy-example"
 # An optional link to a related project repo. For example, the sibling repository where your product code lives.
-github_project_repo = "https://github.com/google/docsy"
+#github_project_repo = "https://github.com/google/docsy"
 
 # Specify a value here if your content directory is not in your repo's root directory
 # github_subdir = ""
@@ -171,39 +171,40 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 # If you want this feature, but occasionally need to remove the Reading time from a single page, 
 # add "hide_readingtime: true" to the page's front matter
 [params.ui.readingtime]
-enable = true
+enable = false
+
+[params.taxonomy]
+taxonomyCloud = ["projects", "tags"] # set taxonomyCloud = [] to hide taxonomy clouds
+taxonomyCloudTitle = ["Our Projects", "Tag Cloud"] # if used, must have same lang as taxonomyCloud
+taxonomyPageHeader = ["tags", "categories"] # set taxonomyPageHeader = [] to hide taxonomies on the page headers
 
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
-[[params.links.user]]
-	name = "User mailing list"
-	url = "https://example.org/mail"
-	icon = "fa fa-envelope"
-        desc = "Discussion and help from your fellow users"
+# [[params.links.user]]
+# 	name = "User mailing list"
+# 	url = "https://example.org/mail"
+# 	icon = "fa fa-envelope"
+#         desc = "Discussion and help from your fellow users"
 [[params.links.user]]
 	name ="Twitter"
-	url = "https://example.org/twitter"
+	url = "https://twitter.com/R3Sbi"
 	icon = "fab fa-twitter"
-        desc = "Follow us on Twitter to get the latest news!"
+        desc = "ツイッターでフォローして最新情報をゲットしよう"
 [[params.links.user]]
 	name = "Stack Overflow"
-	url = "https://example.org/stack"
+	url = "https://stackoverflow.com/questions/tagged/corda"
 	icon = "fab fa-stack-overflow"
-        desc = "Practical questions and curated answers"
+        desc = "実用的な質問と厳選された回答"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
 	name = "GitHub"
-	url = "https://github.com/google/docsy"
+	url = "https://github.com/corda"
 	icon = "fab fa-github"
-        desc = "Development takes place here!"
+        desc = "Cordaの開発はここで行われています"
 [[params.links.developer]]
 	name = "Slack"
-	url = "https://example.org/slack"
+	url = "https://slack.corda.net/"
 	icon = "fab fa-slack"
-        desc = "Chat with other project developers"
-[[params.links.developer]]
-	name = "Developer mailing list"
-	url = "https://example.org/mail"
-	icon = "fa fa-envelope"
-        desc = "Discuss development issues around the project"
+        desc = "他のCorda開発者と日本語でチャットできる（#japaneseチャンネル）"
+
 

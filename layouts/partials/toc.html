@@ -1,0 +1,29 @@
+{{ partial "page-meta-links.html" . }}
+{{ if not .Params.notoc }}
+{{ with .TableOfContents }}
+{{ if ge (len .) 200 }}
+{{ . }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ $context := . }}
+
+<ul id="all-tags">
+
+</ul>
+
+<div class="taxonomy taxonomy-terms-article taxo-categories">
+    <h5 class="taxonomy-title">Categories:</h5>
+    <ul class="taxonomy-terms">
+      <li><a class="taxonomy-term" href="//localhost:1313/categories/taxonomies/" data-taxonomy-term="taxonomies"><span class="taxonomy-label">Taxonomies</span></a></li>
+    </ul>
+  </div>
+  <div class="taxonomy taxonomy-terms-article taxo-tags">
+    <h5 class="taxonomy-title">Tags:</h5>
+    <ul class="taxonomy-terms">
+    {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+    <li><a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}">{{ $name }}</a></li>
+    {{ end }}
+    </ul>
+  </div>
+  

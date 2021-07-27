@@ -1,7 +1,7 @@
 
 ---
 title: ""
-linkTitle: "Corda Guide"
+linkTitle: "ドキュメンテーション"
 weight: 20
 menu:
   main:
