@@ -17,22 +17,22 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>データのプライバシー確保 | Corda Guide記事</title><meta property="og:title" content="データのプライバシー確保" />
-<meta property="og:description" content="データのプライバシー確保
+<title>Corda Open Sourceの商用環境への利用 | Corda Guide記事</title><meta property="og:title" content="Corda Open Sourceの商用環境への利用" />
+<meta property="og:description" content="Corda Open Sourceの商用環境への利用
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/docs/faq/technology/privacy/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2021-07-11T17:37:38+09:00" />
+<meta property="og:url" content="/docs/faq/business/corda-open-source/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-07-11T17:35:31+09:00" />
 <meta property="article:modified_time" content="2021-07-27T17:56:18+09:00" /><meta property="og:site_name" content="Corda Guide記事" />
 
-<meta itemprop="name" content="データのプライバシー確保">
-<meta itemprop="description" content="データのプライバシー確保
-"><meta itemprop="datePublished" content="2021-07-11T17:37:38+09:00" />
+<meta itemprop="name" content="Corda Open Sourceの商用環境への利用">
+<meta itemprop="description" content="Corda Open Sourceの商用環境への利用
+"><meta itemprop="datePublished" content="2021-07-11T17:35:31+09:00" />
 <meta itemprop="dateModified" content="2021-07-27T17:56:18+09:00" />
-<meta itemprop="wordCount" content="22">
-<meta itemprop="keywords" content="privacy," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="データのプライバシー確保"/>
-<meta name="twitter:description" content="データのプライバシー確保
+<meta itemprop="wordCount" content="29">
+<meta itemprop="keywords" content="open source," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Corda Open Sourceの商用環境への利用"/>
+<meta name="twitter:description" content="Corda Open Sourceの商用環境への利用
 "/>
 
 
@@ -393,10 +393,10 @@
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/faq/business/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Business</a>
+    <a  href="/docs/faq/business/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Business</a>
   </li>
   <ul>
-    <li class="collapse " id="docsfaqbusiness">
+    <li class="collapse show" id="docsfaqbusiness">
       
       
       
@@ -404,7 +404,7 @@
         
           
           
-          <a class="td-sidebar-link td-sidebar-link__page " id="m-docsfaqbusinesscorda-open-source" href="/docs/faq/business/corda-open-source/">Corda Open Sourceの商用環境への利用</a>
+          <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsfaqbusinesscorda-open-source" href="/docs/faq/business/corda-open-source/">Corda Open Sourceの商用環境への利用</a>
         
       
       
@@ -434,10 +434,10 @@
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/faq/technology/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Technology</a>
+    <a  href="/docs/faq/technology/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section">Technology</a>
   </li>
   <ul>
-    <li class="collapse show" id="docsfaqtechnology">
+    <li class="collapse " id="docsfaqtechnology">
       
       
       
@@ -445,7 +445,7 @@
         
           
           
-          <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsfaqtechnologyprivacy" href="/docs/faq/technology/privacy/">データのプライバシー確保</a>
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-docsfaqtechnologyprivacy" href="/docs/faq/technology/privacy/">データのプライバシー確保</a>
         
       
       
@@ -654,14 +654,14 @@
 
 
 <li class="breadcrumb-item" >
-	<a href="/docs/faq/technology/">Technology</a>
+	<a href="/docs/faq/business/">Business</a>
 </li>
 
 
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/faq/technology/privacy/">データのプライバシー確保</a>
+	<a href="/docs/faq/business/corda-open-source/">Corda Open Sourceの商用環境への利用</a>
 </li>
 
 	</ol>
@@ -669,26 +669,30 @@
 
             
 <div class="td-content">
-	<h1>データのプライバシー確保</h1>
-    <div class="lead">データのプライバシー確保</div>
+	<h1>Corda Open Sourceの商用環境への利用</h1>
+    <div class="lead">Corda Open Sourceの商用環境への利用</div>
 	       
 	<h3 id="question">Question</h3>
-<p>Cordaを使って、データのプライバシーを確保するためにはどうしたら良いでしょうか？</p>
+<p>Corda Open Sourceを商用環境に使うことは可能でしょうか？ sadasdsa</p>
 <h3 id="answer">Answer</h3>
-<p>Transactionデータはピアツーピアベースで共有されるため、Cordaの台帳は最適にシャーディングされ、データは必要に応じて共有／保存されます。しかし、当事者は自分が直接参加者であるTransactionを受信するだけでなく、インプットステートのすべての過去のTransactionをトレースバックし、検証を実行する必要があります。これは特定のアセット・タイプにとってはプライバシー上の課題となる可能性がありますが、以下の機能により緩和することが可能です。</p>
-<h4 id="confidential-identities">Confidential identities</h4>
-<p>公開されているアイデンティティに加えて、必要に応じてノードは自分の秘密の署名アイデンティティを自己発行することができ、これを使用してTransactionのプライバシーを保護することができます。また、保護されたプライバシーを必要に応じて解除するための組み込みFlow（IdentitySyncFlow）もあります</p>
-<h4 id="reissuing-state">Reissuing State</h4>
-<p>アセットを償還したり再発行したりすることで、Transactionチェーンのサイズを小さくすることができる他、以前のアセット所有者のプライバシーを保護することも可能です。これは必要に応じて何度でも行うことができます。</p>
-<h4 id="transaction-tear-off">Transaction Tear off</h4>
-<p>認証のために第三者（例：Oracles）にトランザクションを送信する必要がある場合があります。そのような場合において、機密性の高い要素や無関係な要素を隠したい場合がありますが、TransactionのTier offを実施することが可能です。そうすることで、特定の要素を隠さずにデータを暗号化しつつ、後で変更できないことを保証しながら、検査や署名のためにTransactionを第三者に送ることができます。</p>
-<p>さらに、以下のようなプライバシー機能を積極的に開発しています。</p>
-<h4 id="conclave">Conclave</h4>
-<p>ConclaveはR3が持つコンフィデンシャル・コンピューティングのソリューションです。セキュアなハードウェア・エンクレーブ内で契約検証を行うことで、台帳全体を効果的に暗号化することができます。すべての依存関係のある取引は、安全なハードウェア・エンクレーブの外部で暗号化されているため、当事者は過去の取引について何も知ることができません。</p>
-<h4 id="ゼロ知識証明">ゼロ知識証明</h4>
-<p>口座残高や取引金額の証明など、範囲証明のための暗号プリミティブを開発しました。</p>
-<h4 id="membership証明の設定">Membership証明の設定</h4>
-<p>特定のMembershipに属しているか否かを事前にFlow内で確認し、当該Membershipに所属を確認できない場合、Txを送信しないという形でプライバシーを確保することが可能です。</p>
+<p>いいえ。</p>
+<p>Corda Enterpriseは商用版であり、Corda Open Sourceは公式製品サポートのつかないトライアル版です。</p>
+<p>Corda Open Sourceは誰でも無料でGithubから入手して、自由に利用することができますが、オープンソースソフトウェアなので、SBI R3 JapanまたはR3社の公式サポートを受けることができません</p>
+<p>商用利用する際のリスクは一般的に以下です。</p>
+<ul>
+<li>障害発生時に公式製品サポートを利用することができないので、復旧に時間とコストがかかる、あるいは原因究明に至らない可能性がある</li>
+<li>アプリケーションのエンドユーザーがセキュリティー上の懸念を示す可能性がある</li>
+<li>サービスのリリース前判定（社内決済、社内セキュリティー・チェックリストのクリア）を通らない可能性がある</li>
+</ul>
+<p>Corda Enterpriseを使うことで</p>
+<ul>
+<li>公式の日本語製品サポート</li>
+<li>迅速なパッチ提供</li>
+<li>パフォーマンス向上（トランザクションの並行処理機能など）</li>
+<li>Corda Firewall</li>
+<li>高可用性構成</li>
+<li>が利用可能になります。</li>
+</ul>
 
 	
 		<style>
