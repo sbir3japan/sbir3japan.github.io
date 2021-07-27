@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.85.0" /><link rel="canonical" type="text/html" href="/docs/faq/technology/">
+<meta name="generator" content="Hugo 0.85.0" /><link rel="alternate" type="application/rss&#43;xml" href="/tags/open-source/index.xml">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
@@ -18,18 +18,15 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Technology | Corda Guide記事</title><meta property="og:title" content="Technology" />
-<meta property="og:description" content="FAQ Technology 
-" />
+<title>open source | Corda Guide記事</title><meta property="og:title" content="open source" />
+<meta property="og:description" content="A Docsy example site" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/docs/faq/technology/" /><meta property="og:site_name" content="Corda Guide記事" />
+<meta property="og:url" content="/tags/open-source/" /><meta property="og:site_name" content="Corda Guide記事" />
 
-<meta itemprop="name" content="Technology">
-<meta itemprop="description" content="FAQ Technology 
-"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Technology"/>
-<meta name="twitter:description" content="FAQ Technology 
-"/>
+<meta itemprop="name" content="open source">
+<meta itemprop="description" content="A Docsy example site"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="open source"/>
+<meta name="twitter:description" content="A Docsy example site"/>
 
 
 
@@ -53,7 +50,7 @@
 
 
   </head>
-  <body class="td-section">
+  <body class="td-term">
     <header>
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
@@ -71,7 +68,7 @@
 				
 				
 				
-				<a  class="nav-link active" href="/docs/" ><span class="active">ドキュメンテーション</span></a>
+				<a  class="nav-link" href="/docs/" ><span>ドキュメンテーション</span></a>
 			</li>
 			
 			<li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -108,121 +105,12 @@
 </nav>
 
     </header>
-    <div class="container-fluid td-outer">
-      <div class="td-main">
-        <div class="row flex-xl-nowrap">
-          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
-          </div>
-          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
-          </div>
-          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-            
+    <div class="container-fluid td-default td-outer">
+      <main role="main" class="td-main">
+        
 
 
-
-
-<div class="td-content">
-<div class="pageinfo pageinfo-primary d-print-none">
-<p>
-
-<a href="#" onclick="print();return false;"></a>.
-</p><p>
-<a href="/docs/faq/technology/"></a>.
-</p>
-</div>
-
-
-
-<h1 class="title">Technology</h1>
-<div class="lead">FAQ Technology</div>
-
-
-
-
-    <ul>
-    
-  
-  
-  
-  
-
-  
-    
-    
-	
-<li>1: <a href="#pg-0b91407c7e80838ea9db1b8b71071a36">データのプライバシー確保</a></li>
-
-
-    
-  
-
-    </ul>
-
-
-<div class="content">
-      
-
-<div class="pageinfo pageinfo-primary">
-<p>This is a placeholder page that shows you how to use this template site.</p>
-
-</div>
-
-<p>For many projects, users may not need much information beyond the information in the Overview, so this section is <strong>optional</strong>. However if there are areas where your users will need a more detailed understanding of a given term or feature in order to do anything useful with your project (or to not make mistakes when using it) put that information in this section. For example, you may want to add some conceptual pages if you have a large project with many components and a complex architecture.</p>
-<p>Remember to focus on what the user needs to know, not just what you think is interesting about your project! If they don’t need to understand your original design decisions to use or contribute to the project, don’t put them in, or include your design docs in your repo and link to them. Similarly, most users will probably need to know more about how features work when in use rather than how they are implemented. Consider a separate architecture page for more detailed implementation and system design information that potential project contributors can consult.</p>
-
-</div>
-</div>
-
-
-  
-  
-  
-  
-
-  
-  
-
-  
-    
-    
-	
-    
-
-<div class="td-content" style="page-break-before: always">
-    
-	<h1 id="pg-0b91407c7e80838ea9db1b8b71071a36">1 - データのプライバシー確保</h1>
-    <div class="lead">データのプライバシー確保</div>
-	<h3 id="question">Question</h3>
-<p>Cordaを使って、データのプライバシーを確保するためにはどうしたら良いでしょうか？</p>
-<h3 id="answer">Answer</h3>
-<p>Transactionデータはピアツーピアベースで共有されるため、Cordaの台帳は最適にシャーディングされ、データは必要に応じて共有／保存されます。しかし、当事者は自分が直接参加者であるTransactionを受信するだけでなく、インプットステートのすべての過去のTransactionをトレースバックし、検証を実行する必要があります。これは特定のアセット・タイプにとってはプライバシー上の課題となる可能性がありますが、以下の機能により緩和することが可能です。</p>
-<h4 id="confidential-identities">Confidential identities</h4>
-<p>公開されているアイデンティティに加えて、必要に応じてノードは自分の秘密の署名アイデンティティを自己発行することができ、これを使用してTransactionのプライバシーを保護することができます。また、保護されたプライバシーを必要に応じて解除するための組み込みFlow（IdentitySyncFlow）もあります</p>
-<h4 id="reissuing-state">Reissuing State</h4>
-<p>アセットを償還したり再発行したりすることで、Transactionチェーンのサイズを小さくすることができる他、以前のアセット所有者のプライバシーを保護することも可能です。これは必要に応じて何度でも行うことができます。</p>
-<h4 id="transaction-tear-off">Transaction Tear off</h4>
-<p>認証のために第三者（例：Oracles）にトランザクションを送信する必要がある場合があります。そのような場合において、機密性の高い要素や無関係な要素を隠したい場合がありますが、TransactionのTier offを実施することが可能です。そうすることで、特定の要素を隠さずにデータを暗号化しつつ、後で変更できないことを保証しながら、検査や署名のためにTransactionを第三者に送ることができます。</p>
-<p>さらに、以下のようなプライバシー機能を積極的に開発しています。</p>
-<h4 id="conclave">Conclave</h4>
-<p>ConclaveはR3が持つコンフィデンシャル・コンピューティングのソリューションです。セキュアなハードウェア・エンクレーブ内で契約検証を行うことで、台帳全体を効果的に暗号化することができます。すべての依存関係のある取引は、安全なハードウェア・エンクレーブの外部で暗号化されているため、当事者は過去の取引について何も知ることができません。</p>
-<h4 id="ゼロ知識証明">ゼロ知識証明</h4>
-<p>口座残高や取引金額の証明など、範囲証明のための暗号プリミティブを開発しました。</p>
-<h4 id="membership証明の設定">Membership証明の設定</h4>
-<p>特定のMembershipに属しているか否かを事前にFlow内で確認し、当該Membershipに所属を確認できない場合、Txを送信しないという形でプライバシーを確保することが可能です。</p>
-
-</div>
-
-
-
-    
-	
-  
-
-
-
-          </main>
-        </div>
-      </div>
+      </main>
       
 <footer class="bg-dark py-5 row d-print-none">
   <div class="container-fluid mx-sm-5">
