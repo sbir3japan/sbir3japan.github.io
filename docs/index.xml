@@ -4,7 +4,7 @@
     <link>/docs/</link>
     <description>Recent content on Welcome to Corda Guide記事</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 11 Jul 2021 19:37:43 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jul 2021 17:02:56 +0900</lastBuildDate>
     
 	  <atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,70 @@
         
       
     
+    
+    <item>
+      <title>Docs: Signature Constraint</title>
+      <link>/docs/developers/cordapp_development/signature-constraint/</link>
+      <pubDate>Wed, 28 Jul 2021 17:02:56 +0900</pubDate>
+      
+      <guid>/docs/developers/cordapp_development/signature-constraint/</guid>
+      <description>
+        
+        
+        &lt;p&gt;CorDappの開発において、アップグレードは避けられません。CorDappのライフサイクルの間に、バグフィックスやビジネス要件の変更によるアップデートがないことはほとんどありません。アップグレードは小さなものもあれば、大規模な計画を必要とする複雑な変更の場合もあります。いずれにしても、これは見過ごせないテーマです。&lt;/p&gt;
+&lt;p&gt;読み進める前に、この記事はステート、フロー、コントラクトなどの&lt;a href=&#34;https://training.corda.net/key-concepts/concepts/&#34;&gt;Cordaの主要な概念&lt;/a&gt;を基本的に理解していることを前提としています。これらを理解していなければ、この記事の残りの部分はあまり意味をなさないので、まずはそれらに慣れることをお勧めします。&lt;/p&gt;
+&lt;h2 id=&#34;explicitおよびimplicitなcontractのアップグレード&#34;&gt;ExplicitおよびImplicitなContractのアップグレード&lt;/h2&gt;
+&lt;p&gt;Cordaでは、アップグレードを管理する方法が2つあります:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Explicit(明示的)&lt;/strong&gt;: すべてのノードで同じバージョンのコントラクトを持つCorDappsを動作させる必要があります。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Implicit(暗黙的)&lt;/strong&gt;: それぞれのノードが異なるタイミングでアップグレードできるようにすることで&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Explicit(明示的)&lt;/strong&gt; なアップグレードのコンセプトはとても簡単です。基本的にアップグレードが必要なときは、すべてのノードがそれを行う必要があります。Explicitアップグレードの欠点は、すべてのノードが、アップグレードされるコントラクトに属する元帳の既存の状態をすべて更新する必要があることです。これは重い処理になります。また、Cordaのような分散型台帳システムでは、すべてのノードに同時にアップグレードを要求することができない場合もあります。&lt;/p&gt;
+&lt;p&gt;一方、&lt;strong&gt;Implicit(暗黙的)&lt;/strong&gt; のアップグレードでは、CorDappの異なるバージョンのノードが相互に取引を行うことができます。例えば、ノードAとノードBの両方がCorDappのバージョン1で動作していたとします。新しいバージョン（バージョン2）がリリースされ、ノードAはアップグレードし、ノードBはバージョン1のままだったとします。この時点で、ノードBは、トランザクション内のコントラクト・アタッチメントがトランザクションで使用される制約を満たす限り、ノードAとの間でトランザクションを開始することができます。このアプローチでは、ネットワークやノードの管理者がアップグレードの計画を立てる際に、より柔軟に対応することができます。&lt;/p&gt;
+&lt;p&gt;これを実現するためには、ノードがトランザクションで提示されたコントラクトが信頼できるかどうかをどのように判断するかが重要な問題となります。&lt;/p&gt;
+&lt;h2 id=&#34;contract-constraint&#34;&gt;Contract Constraint&lt;/h2&gt;
+&lt;p&gt;Contract constraintは、着信したトランザクションのcontractが受け入れられるかどうかを決定するアプローチとみなすことができます。&lt;/p&gt;
+&lt;p&gt;Cordaでは、いくつかのタイプのconstraintがサポートされています:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Hash constraint&lt;/strong&gt;: この状態で使用できるアプリのバージョンは1つだけです。これにより、元のバージョンで作成されたStateを利用しながら、将来的にアプリがアップグレードされることを防ぎます。これは、explicit upgradeに使用されます。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Compatibility zone whitelisted (or CZ whitelisted) constraint&lt;/strong&gt;: 互換性ゾーン演算子は、コントラクトクラス名で使用可能なバージョンのハッシュをリストアップします。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Signature constraint&lt;/strong&gt;: 特定の鍵で署名されたどのバージョンのアプリでも使用できます。Corda 4以降のバージョンでは、アプリが署名されている場合、この方法がデフォルトで使用されます。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Always accept constraint&lt;/strong&gt;: どのバージョンのアプリでも使用できます。これは安全ではありませんが、テストには便利です。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cordaの公式ドキュメントによると、&lt;a href=&#34;https://docs.corda.net/docs/corda-os/4.8/api-contract-constraints.html#signature-constraints&#34;&gt;Hash constraintとCompatibility zone whitelisted constraintは、Signature constraintが実装される前の初期のCordaバージョンの名残です。&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;signature-constraintを使ったアップグレード&#34;&gt;Signature Constraintを使ったアップグレード&lt;/h2&gt;
+&lt;h3 id=&#34;contract-アップグレード&#34;&gt;Contract アップグレード&lt;/h3&gt;
+&lt;p&gt;Corda 4では、CorDappが署名されている場合、デフォルトでSignature constraint が使用されます。キーは、&lt;a href=&#34;https://docs.corda.net/docs/corda-enterprise/4.8/api-core-types.html#compositekey&#34;&gt;CompositeKey&lt;/a&gt;またはシンプルなPublicKeyのいずれかです。着信トランザクションを処理する際、ノードはその中のcontract attachmentが、そのSignature constraintで指定された正しい署名者を持っているかどうかを確認します。&lt;/p&gt;
+&lt;p&gt;ノードが信頼していないcontract attachmentを使用するトランザクションを受信したが、同じコントラクトクラスと同じ署名を持つアタッチメントがノード上に存在する場合、ノードはそのcontractのコードを信頼しているかのように実行します。つまり、ノードは古いバージョンのCorDappを実行しているトランザクションを検証するために、すべてのバージョンのCorDappをアップロードする必要はなくなりました。代わりに、CorDappコントラクトの任意のバージョンがインストールされていれば十分です。&lt;/p&gt;
+&lt;p&gt;output stateを追加する際には、&lt;code&gt;TransactionBuilder&lt;/code&gt;が適切な制約とattachmentを選択してくれます。そのため、ほとんどの場合、コード内で使用する制約の種類を指定することを気にする必要はありません。&lt;/p&gt;
+&lt;p&gt;CorDappのアップグレードとは、基本的にCorDappを新しいバージョンのJARファイルで置き換えることを意味します。また、新しいバージョンがstateの既存の状態と互換性があるかどうかを確認するために、様々なことに注意する必要があります。例えば、あるstateに新しいフィールドが導入された場合、そのフィールドを&lt;code&gt;Nullable&lt;/code&gt;にすることで、古いバージョンのアプリで生成されたstateをデシリアライズする際に問題が発生しないようにします。&lt;/p&gt;
+&lt;p&gt;ここでは、Kotlinでの例です：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;フローアップグレード&#34;&gt;フローアップグレード&lt;/h2&gt;
+&lt;p&gt;フローのアップグレードでは、異なるバージョンで動作しているノード間のトランザクションをどのように処理するかは、CorDapp 開発者がコントロールします。&lt;/p&gt;
+&lt;p&gt;フローのアップグレードの際に考慮すべき主な点は、フローのバージョニングです。@&lt;code&gt;InitiatingFlow&lt;/code&gt;アノテーションには、デフォルトで1となるバージョンプロパティが用意されています。このプロパティが重要なのは、相手がどのバージョンのフローを実行しているかを判断するのに役立ち、それに応じて正しいビジネスロジックが実行されるようにフローを実装できるからです。&lt;/p&gt;
+&lt;p&gt;下記は、フローのバージョン番号を指定する例です：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;下記は、カウンターパーティのフローバージョンを取得する例です：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;backward-compatibility後方互換性&#34;&gt;Backward-compatibility（後方互換性）&lt;/h2&gt;
+&lt;p&gt;CorDappの構造は、2つの独立したモジュールに分割することが推奨されています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;contracts.jarには、ステートとコントラクトロジックが格納されています。&lt;/li&gt;
+&lt;li&gt;workflow.jarにはフロー、サービス、その他のサポートライブラリが格納されています。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;contracts.jarはトランザクションに添付され、ネットワーク内のノード間で送信されますが、その中のコードはノードがトランザクションを検証するために必要なデータ構造とスマートコントラクトロジックを定義しているからです。CorDappのすべてが1つのモジュールに入っていると、フローのコードは使われていないにもかかわらず、一緒に流されてしまいます。&lt;/p&gt;
+&lt;p&gt;アップグレードは、コントラクトとワークフローの両方のモジュールの変更を伴うとは限りません。フローのビジネスロジックを変更する必要があるためにアップグレードが起こる場合もあれば、スマートコントラクトのコードを更新する必要がある場合もあります。コントラクトとワークフローの両方が変更される場合は、新バージョンのフローが旧バージョンのフローや旧バージョンのコントラクトと後方互換性があるかどうかを確認することが重要です。&lt;/p&gt;
+&lt;h2 id=&#34;hash-contractからsignature-contractへの移行&#34;&gt;Hash contractからSignature contractへの移行&lt;/h2&gt;
+&lt;p&gt;これまでの議論では、すべてのステートが同じタイプの制約によって作成されるという前提で話を進めてきました。しかし、現在Hash contractを使用していて、今後Signature contractに変更しようとしている場合、元帳上の既存の状態をSignature contractを使用するように移行する必要があります。&lt;/p&gt;
+&lt;p&gt;この記事の範囲外ですが、このトピックに関するいくつかのリソースがありますので、参考にしてみてください：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/corda/unconstraint-signature-constraint-migration-e95a66789eab&#34;&gt;Unconstraint Signature Constraint Migration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/snedamle/corda_advanced_bootcamps/tree/master/contract-constraint-migration&#34;&gt;contract-constraint-migration in Corda Advanced Bootcamps&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
     
     <item>
       <title>Docs: Corda 4.6 Introduction</title>
