@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Welcome to Corda Guide記事 – privacy</title>
-    <link>/tags/privacy/</link>
-    <description>Recent content in privacy on Welcome to Corda Guide記事</description>
+    <title>Welcome to Corda Guide記事 – Technology</title>
+    <link>/docs/faq/technology/</link>
+    <description>Recent content in Technology on Welcome to Corda Guide記事</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 11 Jul 2021 17:37:38 +0900</lastBuildDate>
     
-	  <atom:link href="/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/docs/faq/technology/index.xml" rel="self" type="application/rss+xml" />
     
     
       

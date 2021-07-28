@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Welcome to Corda Guide記事 – open source</title>
-    <link>/tags/open-source/</link>
-    <description>Recent content in open source on Welcome to Corda Guide記事</description>
+    <title>Welcome to Corda Guide記事 – Business</title>
+    <link>/docs/faq/business/</link>
+    <description>Recent content in Business on Welcome to Corda Guide記事</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 11 Jul 2021 17:35:31 +0900</lastBuildDate>
     
-	  <atom:link href="/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="/docs/faq/business/index.xml" rel="self" type="application/rss+xml" />
     
     
       

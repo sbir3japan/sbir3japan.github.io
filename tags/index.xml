@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Corda Guide記事 – Tags</title>
+    <title>Welcome to Corda Guide記事 – Tags</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on Corda Guide記事</description>
+    <description>Recent content in Tags on Welcome to Corda Guide記事</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 11 Jul 2021 17:37:38 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 28 Jul 2021 16:21:40 +0900</lastBuildDate>
     
 	  <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     

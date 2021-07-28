@@ -1,0 +1,152 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome to Corda Guide記事 – </title>
+    <link>/docs/</link>
+    <description>Recent content on Welcome to Corda Guide記事</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 28 Jul 2021 16:21:40 +0900</lastBuildDate>
+    
+	  <atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: New Article</title>
+      <link>/docs/developers/design/new-article/</link>
+      <pubDate>Wed, 28 Jul 2021 16:21:40 +0900</pubDate>
+      
+      <guid>/docs/developers/design/new-article/</guid>
+      <description>
+        
+        
+        &lt;p&gt;This is a new article.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Corda 4.6 Introduction</title>
+      <link>/docs/understanding_corda/general_concepts/corda4.6-introduction/</link>
+      <pubDate>Sun, 11 Jul 2021 19:37:43 +0900</pubDate>
+      
+      <guid>/docs/understanding_corda/general_concepts/corda4.6-introduction/</guid>
+      <description>
+        
+        
+        
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;こちらの記事はR3社のテックリードであるMike Wardによる記事の抄訳です。詳細については元記事をご覧ください。
+R3社から、Corda4.6がもうすぐリリースされます。今回のリリースは、次の3つの領域に重点を置いています。&lt;/p&gt;
+&lt;p&gt;Flow管理
+メンバーシップとネットワークの改善
+開発者向けの改善&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&#34;flow管理&#34;&gt;Flow管理&lt;/h2&gt;
+&lt;p&gt;Cordaは、企業をまたいでワークフローを実現するFlowという機能を備えています。これらのワークフローの管理は困難な場合が多いです。今回のリリースでは，実行中のFlowの管理方法を改善しました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;シェル/ RPCを介してFlowCheckpointを検索および検査する機能が追加されました。本番で長い時間使われるようになった結果、実行中のFlowを管理するツールが必要になりました。この機能を使用すると、Flowの開始時間、到達したステップ、渡されたパラメーターなど、実行中のFlowに関する豊富な情報をリモートで取得して、実行を管理することができます。これは、以前の「FlowHospital」を拡張しています。ユーザーはCorDappなどのいくつかのフィルター基準からFlowを照会し、進行状況等や各種の情報を取得できます。&lt;/li&gt;
+&lt;li&gt;Nodeを再起動せずにFlowを再試行できるようになりました。ノードオペレーターは、再試行をトリガーするためにノードを再起動する必要がなく、RPCを介してHospitalized Flowを再試行できるようになりました。さらに、ノードオペレーターは、問題のあるFlowを「再起動しない」としてマークし、ノードが再起動されたときに自動的に再試行されないようにすることができます。&lt;/li&gt;
+&lt;li&gt;一意のIDを使用して、フローの開始が重複しないようにすることができるようになりました。RPCクライアントがバージョンアップし、クライアントがFlowの二重呼び出しを排除できるようになりました。これにより、Flowの開始に失敗した場合にクライアントが適切なアクションを実行できるようになるため、エコシステム全体の回復力も向上します。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;メンバーシップとネットワークの改善&#34;&gt;メンバーシップとネットワークの改善&lt;/h2&gt;
+&lt;p&gt;多くの実運用経験によれば、CorDappオペレーターが参加者を管理する為に多くのコストを投じていることが判明しています。プライベートネットワークでも、the Corda Networkなどのより大きなネットワークでも、オペレーターはユーザーを特定し、それらの参加者について確立したメタデータを利用してユーザーを管理する必要があります。このニーズに対応するための初期機能を実装しました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;”代表”という参加者の実装。BNO（Business Network Operator)という用語がCordaにはあります。BNOとは、CorDappsをネットワーク参加者に配布し、ネットワークに参加したユーザーを管理する主体を表す用語です。この重要なエンティティがユーザーをより適切に管理できるようにすることを目指しました。手始めに，典型的にはBNOを表す「Primitive」を用意しました．今回のリリースでは、メンバーシップ認証のライフサイクルを管理するツールを紹介し、メンバーシップを管理し、資格を推進し、ビジネスネットワーク内でプライバシーとアクセス許可をきめ細かく設定するためのベストプラクティスを紹介します。&lt;/li&gt;
+&lt;li&gt;大規模ネットワークのサポート強化。ネットワークマップリストの配信パフォーマンスを向上させ、ネットワークが数千のノードを含む場合のターンアラウンドタイムを高速化しました。&lt;/li&gt;
+&lt;li&gt;Notaryを追加する際のFlag Dayの必要性の除去。新しいNotaryがネットワークのホワイトリストに追加されるたびに更新されたネットワークパラメーターを受け入れた後、Nodeをシャットダウンして再起動する必要がなくなりました。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;開発者向けの改善&#34;&gt;開発者向けの改善&lt;/h2&gt;
+&lt;p&gt;このリリースでは、開発者がより復元力のあるアプリケーションを構築するのに役立つ多くの改善がなされました。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;復元できないチェックポイントの検出。Flowはその実行中に、自動的にシリアライズされ、チェックポイントに到達するたびにデシリアライズされるようになりました。これにより、デシリアライズできないチェックポイントを作成するフローコードの自動検出が可能になります。この機能は、運用中のノード構成では無効にすることができます。（主に開発中に使用することを想定しています）&lt;/li&gt;
+&lt;li&gt;カスタムシリアライザーの登録を可能にしました。FlowCheckPointの一部として型をシリアル化するときに、カスタムシリアライザーを使用できるようになりました。（もちろん、ほとんどのクラスはカスタムシリアライザーを必要としません。）チェックポイントのシリアル化中に例外をスローするクラスの為の機能です。新しいCheckpointCustomSerializerインターフェイスを実装して、カスタムチェックポイントシリアライザーを作成できます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;その他の追加機能&#34;&gt;その他の追加機能&lt;/h2&gt;
+&lt;p&gt;上記3つの重点的な改善に加え、以下のような機能改善がなされています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ledgerの統計データ提供。CordaのLedger（台帳）に関する統計を提供する新しいユーティリティCorDappをリリースします。&lt;/li&gt;
+&lt;li&gt;トランザクションチェーンのサイズ、添付ファイルの数、およびトランザクションチェーンのすべてのOutputが消費されたかどうかを示す情報が提供するLedgerGraphというユーティリティーが提供されます。このユーティリティは、トランザクションチェーンが長すぎる場合に，オペレーターがその動作を予測し、場合によっては他の手段を検討することを可能とします。&lt;/li&gt;
+&lt;li&gt;インプレースアップグレードの実現。CordaオープンソースからCordaエンタープライズに移行するお客様をよりよく支援したいと考えています。これに向けた最初のステップは、オープンソースとエンタープライズの間でスキーマが一致している事です。これにより、インスタンスの大規模な移行を必要としない、いわゆるインプレースアップグレードが可能になります。&lt;/li&gt;
+&lt;li&gt;署名件数カウントツールの改善。中央のコレクターNodeからCorda Enterpriseメータリングデータを取得できるようにMetering Cordappを改善しました。Metering CorDappはスタンドアローンクライアントになりました。クライアントをそのまま使用して、ビジネスネットワークの1つ以上のNodeからJSON形式で測定データを取得できます。各Nodeのシェルに直接アクセスする必要はありません。いずれかのNodeが応答に失敗した場合、クライアントは不足しているデータを収集する後続の試行を容易にします。&lt;/li&gt;
+&lt;li&gt;TLS鍵をHSMに保管できるようになりました。TLSキーは、他のCordaサーバーへの安全な接続を確保するために使用されます。これまでのリリースにもこの機能はありましたが、制限がありました。今回のリリースから、あらゆる構成において、HSMにTLSキーを保存できるようになりました。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: データのプライバシー確保</title>
+      <link>/docs/faq/technology/privacy/</link>
+      <pubDate>Sun, 11 Jul 2021 17:37:38 +0900</pubDate>
+      
+      <guid>/docs/faq/technology/privacy/</guid>
+      <description>
+        
+        
+        &lt;h3 id=&#34;question&#34;&gt;Question&lt;/h3&gt;
+&lt;p&gt;Cordaを使って、データのプライバシーを確保するためにはどうしたら良いでしょうか？&lt;/p&gt;
+&lt;h3 id=&#34;answer&#34;&gt;Answer&lt;/h3&gt;
+&lt;p&gt;Transactionデータはピアツーピアベースで共有されるため、Cordaの台帳は最適にシャーディングされ、データは必要に応じて共有／保存されます。しかし、当事者は自分が直接参加者であるTransactionを受信するだけでなく、インプットステートのすべての過去のTransactionをトレースバックし、検証を実行する必要があります。これは特定のアセット・タイプにとってはプライバシー上の課題となる可能性がありますが、以下の機能により緩和することが可能です。&lt;/p&gt;
+&lt;h4 id=&#34;confidential-identities&#34;&gt;Confidential identities&lt;/h4&gt;
+&lt;p&gt;公開されているアイデンティティに加えて、必要に応じてノードは自分の秘密の署名アイデンティティを自己発行することができ、これを使用してTransactionのプライバシーを保護することができます。また、保護されたプライバシーを必要に応じて解除するための組み込みFlow（IdentitySyncFlow）もあります&lt;/p&gt;
+&lt;h4 id=&#34;reissuing-state&#34;&gt;Reissuing State&lt;/h4&gt;
+&lt;p&gt;アセットを償還したり再発行したりすることで、Transactionチェーンのサイズを小さくすることができる他、以前のアセット所有者のプライバシーを保護することも可能です。これは必要に応じて何度でも行うことができます。&lt;/p&gt;
+&lt;h4 id=&#34;transaction-tear-off&#34;&gt;Transaction Tear off&lt;/h4&gt;
+&lt;p&gt;認証のために第三者（例：Oracles）にトランザクションを送信する必要がある場合があります。そのような場合において、機密性の高い要素や無関係な要素を隠したい場合がありますが、TransactionのTier offを実施することが可能です。そうすることで、特定の要素を隠さずにデータを暗号化しつつ、後で変更できないことを保証しながら、検査や署名のためにTransactionを第三者に送ることができます。&lt;/p&gt;
+&lt;p&gt;さらに、以下のようなプライバシー機能を積極的に開発しています。&lt;/p&gt;
+&lt;h4 id=&#34;conclave&#34;&gt;Conclave&lt;/h4&gt;
+&lt;p&gt;ConclaveはR3が持つコンフィデンシャル・コンピューティングのソリューションです。セキュアなハードウェア・エンクレーブ内で契約検証を行うことで、台帳全体を効果的に暗号化することができます。すべての依存関係のある取引は、安全なハードウェア・エンクレーブの外部で暗号化されているため、当事者は過去の取引について何も知ることができません。&lt;/p&gt;
+&lt;h4 id=&#34;ゼロ知識証明&#34;&gt;ゼロ知識証明&lt;/h4&gt;
+&lt;p&gt;口座残高や取引金額の証明など、範囲証明のための暗号プリミティブを開発しました。&lt;/p&gt;
+&lt;h4 id=&#34;membership証明の設定&#34;&gt;Membership証明の設定&lt;/h4&gt;
+&lt;p&gt;特定のMembershipに属しているか否かを事前にFlow内で確認し、当該Membershipに所属を確認できない場合、Txを送信しないという形でプライバシーを確保することが可能です。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Corda Open Sourceの商用環境への利用</title>
+      <link>/docs/faq/business/corda-open-source/</link>
+      <pubDate>Sun, 11 Jul 2021 17:35:31 +0900</pubDate>
+      
+      <guid>/docs/faq/business/corda-open-source/</guid>
+      <description>
+        
+        
+        &lt;h3 id=&#34;question&#34;&gt;Question&lt;/h3&gt;
+&lt;p&gt;Corda Open Sourceを商用環境に使うことは可能でしょうか？ sadasdsa&lt;/p&gt;
+&lt;h3 id=&#34;answer&#34;&gt;Answer&lt;/h3&gt;
+&lt;p&gt;いいえ。&lt;/p&gt;
+&lt;p&gt;Corda Enterpriseは商用版であり、Corda Open Sourceは公式製品サポートのつかないトライアル版です。&lt;/p&gt;
+&lt;p&gt;Corda Open Sourceは誰でも無料でGithubから入手して、自由に利用することができますが、オープンソースソフトウェアなので、SBI R3 JapanまたはR3社の公式サポートを受けることができません&lt;/p&gt;
+&lt;p&gt;商用利用する際のリスクは一般的に以下です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;障害発生時に公式製品サポートを利用することができないので、復旧に時間とコストがかかる、あるいは原因究明に至らない可能性がある&lt;/li&gt;
+&lt;li&gt;アプリケーションのエンドユーザーがセキュリティー上の懸念を示す可能性がある&lt;/li&gt;
+&lt;li&gt;サービスのリリース前判定（社内決済、社内セキュリティー・チェックリストのクリア）を通らない可能性がある&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Corda Enterpriseを使うことで&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;公式の日本語製品サポート&lt;/li&gt;
+&lt;li&gt;迅速なパッチ提供&lt;/li&gt;
+&lt;li&gt;パフォーマンス向上（トランザクションの並行処理機能など）&lt;/li&gt;
+&lt;li&gt;Corda Firewall&lt;/li&gt;
+&lt;li&gt;高可用性構成&lt;/li&gt;
+&lt;li&gt;が利用可能になります。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
