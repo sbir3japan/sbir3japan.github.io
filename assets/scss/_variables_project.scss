@@ -6,6 +6,10 @@ Add styles or override variables from the theme here.
 
 $primary: #EC1D24;
 $secondary: #ffffff;
-$enable-gradients: true;
-$enable-rounded: true;
-$enable-shadows: true;
+//$enable-gradients: true;
+//$enable-rounded: true;
+//$enable-shadows: true;
+
+.shift {
+    margin-left: 10px;
+}

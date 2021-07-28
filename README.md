@@ -16,56 +16,20 @@ The theme is included in this project as a Git submodule:
 
 If you want to do SCSS edits and want to publish these, you need to install `PostCSS`
 
+## Instructions
+You can read detailed instructions in the [usage docs](/usage-docs/README.md).
 
-## Running the website locally
+Please read them!
 
-### Requirements 
-- [Hugo](https://gohugo.io) in `extended` version.
-- [npm](https://nodejs.org/en/download/) 
+You will need:
 
-### Build the project
-1. The first installation needs to download the theme submodule. So, please run: `git submodule update --init --recursive`
-2. Install some npm dependencies needed for this theme
-```
-npm install -D autoprefixer
-npm install -D postcss-cli
-npm install -D postcss
-```
-3. From the root folder run `npm install`
-4. Run the server with `hugo server`
-5. Open your web browser and type `http://localhost:1313` .
+* [hugo](https://github.com/gohugoio/hugo/releases)  (a single binary on all platforms)
+    * Use the latest **extended** version
+* a text editor: we strongly recommend [Visual Studio Code](https://code.visualstudio.com/).
 
-## Running into a Docker container
+## Quick Start
 
-You can run docsy-example inside a [Docker](https://docs.docker.com/) container, the container runs with a volume bound to the root folder. This approach doesn't require you to install any dependencies other than [Docker Desktop](https://www.docker.com/products/docker-desktop) on Windows and Mac, and [Docker Compose](https://docs.docker.com/compose/install/)on Linux.
-
-1. Build the docker image `docker-compose build`
-  
-1. Run the built image `docker-compose up`
-
-   > NOTE: You can run both commands at once with `docker-compose up --build`.
-
-2. Verify that the service is working. Open your web browser and type `http://localhost:1313` .
-
-### Cleanup Docker container
-
-To stop Docker Compose, on your terminal window, press **Ctrl + C**. 
-
-To remove the produced images run `docker-compose rm`
-
-## Troubleshooting
-
-As you run the website locally, you may run into the following error:
-
-```
-➜ hugo server
-
-INFO 2021/01/21 21:07:55 Using config file: 
-Building sites … INFO 2021/01/21 21:07:55 syncing static files to /
-Built in 288 ms
-Error: Error building site: TOCSS: failed to transform "scss/main.scss" (text/x-scss): resource "scss/scss/main.scss_9fadf33d895a46083cdd64396b57ef68" not found in file cache
-```
-
-This error occurs if you have not installed the extended version of Hugo.
-See our [user guide](https://www.docsy.dev/docs/getting-started/) for instructions on how to install Hugo.
-
+* Download [hugo](https://github.com/gohugoio/hugo/releases) and [npm](https://nodejs.org/en/download/)  
+* clone this repo
+* `cd` into the root of the repo and run `./build.sh`
+* edit the markdown in `content/jp`

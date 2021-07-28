@@ -7,12 +7,12 @@ enableRobotsTXT = true
 theme = ["docsy"]
 
 # Will give values to .Lastmod etc.
-enableGitInfo = true
+enableGitInfo = false
 
 # Language settings
 contentDir = "content/jp"
 defaultContentLanguage = "jp"
-defaultContentLanguageInSubdir = false
+defaultContentLanguageInSubdir = true
 # Useful when translating.
 enableMissingTranslationPlaceholders = true
 
@@ -53,8 +53,8 @@ id = "UA-00000000-0"
 
 [languages]
 [languages.jp]
-title = "Corda Guide記事"
-description = "A Docsy example site"
+title = "Welcome to Corda Guide記事"
+description = ""
 languageName ="日本語"
 # Weight used for sorting.
 weight = 1
@@ -87,8 +87,8 @@ weight = 1
 # Everything below this are Site Params
 
 # Comment out if you don't want the "print entire section" link enabled.
-[outputs]
-section = ["HTML", "print"]
+#[outputs]
+#section = ["HTML", "print"]
 
 [taxonomies]
 tag = "tags"
@@ -153,9 +153,11 @@ breadcrumb_disable = false
 #  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
 sidebar_search_disable = false
 #  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
-navbar_logo = true
+navbar_logo = false
 # Set to true to disable the About link in the site footer
 footer_about_disable = false
+
+ui_search = "Search this site..."
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
@@ -164,14 +166,15 @@ footer_about_disable = false
 [params.ui.feedback]
 enable = true
 # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
-yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
-no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+yes = 'Glad to hear it! Please <a href="https://github.com/sbir3japan/sbir3japan.github.io/issues/new">tell us how we can improve</a>.'
+no = 'Sorry to hear that. Please <a href="https://github.com/sbir3japan/sbir3japan.github.io/issues/new">tell us how we can improve</a>.'
 
 # Adds a reading time to the top of each doc.
 # If you want this feature, but occasionally need to remove the Reading time from a single page, 
 # add "hide_readingtime: true" to the page's front matter
 [params.ui.readingtime]
 enable = false
+
 
 [params.taxonomy]
 taxonomyCloud = ["projects", "tags"] # set taxonomyCloud = [] to hide taxonomy clouds

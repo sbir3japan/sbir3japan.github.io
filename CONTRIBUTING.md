@@ -1,28 +1,15 @@
-# How to Contribute
+# How to contribute to Corda Guide
 
-We'd love to accept your patches and contributions to this project. There are
-just a few small guidelines you need to follow.
+There are two ways to submit a new article to Corda Guide:
+1. fork the repository and make a pull request
+2. open a new issue with the article in attachment (as .md file) 
 
-## Contributor License Agreement
+We encourage the method #1 since it allows a standard github review of the article and the procedure more smooth.
 
-Contributions to this project must be accompanied by a Contributor License
-Agreement. You (or your employer) retain the copyright to your contribution;
-this simply gives us permission to use and redistribute your contributions as
-part of the project. Head over to <https://cla.developers.google.com/> to see
-your current agreements on file or to sign a new one.
+## Fork and make a pull request
 
-You generally only need to submit a CLA once, so if you've already submitted one
-(even if it was for a different project), you probably don't need to do it
-again.
-
-## Code reviews
-
-All submissions, including submissions by project members, require review. We
-use GitHub pull requests for this purpose. Consult
-[GitHub Help](https://help.github.com/articles/about-pull-requests/) for more
-information on using pull requests.
-
-## Community Guidelines
-
-This project follows
-[Google's Open Source Community Guidelines](https://opensource.google.com/conduct/).
+1. Fork the repository to your personal github account
+2. Pull the repository locally to your laptop
+3. Create the article file. 
+   1. All the articles are under `/content/jp/docs/[developers|faq|release_notes|understanding_corda]`
+   2. Create a new .md file for your article. You can copy/paste a file

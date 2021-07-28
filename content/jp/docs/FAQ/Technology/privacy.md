@@ -3,7 +3,6 @@ title: "データのプライバシー確保"
 linkTitle: "データのプライバシー確保"
 date: 2021-07-11T17:37:38+09:00
 tags: ["privacy"]
-categories: ["Privacy"]
 description: >
   データのプライバシー確保
 ---
