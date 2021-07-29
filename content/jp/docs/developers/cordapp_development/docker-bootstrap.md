@@ -1,6 +1,6 @@
 ---
-title: "Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform"
-linkTitle: "Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform"
+title: "DockerComposeを使用したネットワークブートストラップする"
+linkTitle: "DockerComposeを使用したネットワークブートストラップする"
 date: 2021-07-29T11:30:24+09:00
 tags: ["docker", "bootstrap"]
 description: >
