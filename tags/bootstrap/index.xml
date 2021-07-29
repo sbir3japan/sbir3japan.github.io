@@ -1,0 +1,81 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome to Corda Guide記事 – bootstrap</title>
+    <link>/tags/bootstrap/</link>
+    <description>Recent content in bootstrap on Welcome to Corda Guide記事</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 29 Jul 2021 11:30:24 +0900</lastBuildDate>
+    
+	  <atom:link href="/tags/bootstrap/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform</title>
+      <link>/docs/developers/cordapp_development/docker-bootstrap/</link>
+      <pubDate>Thu, 29 Jul 2021 11:30:24 +0900</pubDate>
+      
+      <guid>/docs/developers/cordapp_development/docker-bootstrap/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Dockerformは、CordaノードをDockerコンテナのローカルに簡単にデプロイすることができます。&lt;/p&gt;
+&lt;p&gt;これは、Cordaのgradleプラグインが提供するタスクで、Network Bootstrapperが生成したアウトプットを使って、ブートストラップされたCordaネットワークを簡単に起動するために使用できる&lt;code&gt;docker-compose.yml&lt;/code&gt;ファイルを自動的に生成します。&lt;/p&gt;
+&lt;p&gt;Network Bootstrapperの公式ドキュメントは&lt;a href=&#34;https://docs.corda.net/docs/corda-os/4.8/network-bootstrapper.html#network-bootstrapper&#34;&gt;こちら&lt;/a&gt;です。&lt;/p&gt;
+&lt;h2 id=&#34;メリット&#34;&gt;メリット&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Network Bootstrapper（こちらでも説明しています）構築を簡略化できるdocker-compose.yamlを自動的に作成します。これにより手動での構築が不要になります。&lt;/li&gt;
+&lt;li&gt;Cordaノードとそのデータベースの両方のデプロイメントをより適切に制御できるようになります。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.corda.net/docs/corda-enterprise/4.8/operations/deployment/deployment-kubernetes.html&#34;&gt;Kubernetes&lt;/a&gt;でも使用可能な公式&lt;a href=&#34;https://docs.corda.net/docs/corda-os/4.8/docker-image.html#official-corda-docker-image&#34;&gt;Dockerイメージ&lt;/a&gt;の使用方法を理解することができます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ウォークスルー事例&#34;&gt;ウォークスルー事例&lt;/h2&gt;
+&lt;p&gt;ドキュメントには、Dockerformがどのように機能するかが非常によく説明されています。ここでは、R3のGitHubにあるCorDappのサンプルを見てみましょう。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/corda/samples-kotlin/tree/master/Features/dockerform-yocordapp&#34;&gt;https://github.com/corda/samples-kotlin/tree/master/Features/dockerform-yocordapp&lt;/a&gt; .&lt;/p&gt;
+
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;Dockerformについてのドキュメントは&lt;a href=&#34;https://docs.corda.net/docs/corda-os/4.8/generating-a-node.html#use-cordform-and-dockerform-to-create-a-set-of-local-nodes-automatically&#34;&gt;こちら&lt;/a&gt;。&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&#34;buildgradleの新しいタスク&#34;&gt;build.gradleの新しいタスク&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;外部からSSHでDockerコンテナに接続するために必要な &amp;ldquo;sshdPort &amp;ldquo;を追加します
+&lt;ul&gt;
+&lt;li&gt;ノードに使用する公式Corda Docker Imageを宣言します&lt;/li&gt;
+&lt;li&gt;外部からSSHでDockerコンテナに接続するために必要な &amp;ldquo;sshdPort &amp;ldquo;を追加します&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&#34;/images/docker-1.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;h3 id=&#34;preparedockernodes-タスクを実行する&#34;&gt;prepareDockerNodes &amp;ldquo;タスクを実行する&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;./gradlew prepareDockerNodes&lt;/code&gt;を実行すると、&lt;code&gt;/build/nodes&lt;/code&gt;フォルダ内に以下のようなアウトプットが作成されます。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker-compose.yaml&lt;/code&gt;は、&lt;code&gt;prepareDockerNodes&lt;/code&gt;タスクから取得した情報で自動的に生成されます。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&#34;/images/docker-2.png&#34; alt=&#34;drawing&#34; style=&#34;width:300px;&#34;/&gt;
+&lt;p&gt;以下は、&lt;code&gt;docker-compose.yaml&lt;/code&gt;の内容です。Dockerのすべてのボリュームが、&lt;code&gt;build/nodes&lt;/code&gt;内に生成されたフォルダに関連付けられています。&lt;/p&gt;
+&lt;img src=&#34;/images/docker-3.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;h3 id=&#34;外部データベースを追加する&#34;&gt;外部データベースを追加する&lt;/h3&gt;
+&lt;p&gt;上記の例ではH2データベースを使用していますが、他のデータベースを追加することも可能です。DockerformがDockerコンテナの作成を行います。PostgreSQLを使った例を見てみましょう。&lt;/p&gt;
+
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;こちらの内容は、&lt;a href=&#34;https://www.notion.so/JP-Docker-Compose-Corda-Dockerform-8fd2801bee984865ba2822ee018ad6d4#4c0677cf98d84e9d8bb8274c63c28d96&#34;&gt;こちら&lt;/a&gt;のドキュメントにも記載されています。&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;ドキュメントに記載されている手順が完了したら、&lt;code&gt;./gradlew prepareDockerNodes&lt;/code&gt;を実行します。ここでは、出力と&lt;code&gt;docker-compose.yaml&lt;/code&gt; が更新されます。PostgreSQLのパラメータを設定した新しいサービスである&lt;code&gt;notary-db&lt;/code&gt;があります。&lt;/p&gt;
+&lt;img src=&#34;/images/docker-4.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;p&gt;また、Dockerformは上記のDocker Composeで使用されるPostgreSQLのDockerfileと、データベースを初期化するスクリプトも作成します。&lt;/p&gt;
+&lt;img src=&#34;/images/docker-5.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/images/docker-6.png&#34; alt=&#34;drawing&#34; style=&#34;width:800px;&#34;/&gt;
+      </description>
+    </item>
+    
+  </channel>
+</rss>

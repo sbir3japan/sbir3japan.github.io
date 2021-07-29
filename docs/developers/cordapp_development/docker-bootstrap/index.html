@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.86.0" /><link rel="alternate" type="application/rss&#43;xml" href="/docs/developers/network_operations/index.xml">
-<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<meta name="generator" content="Hugo 0.86.0" /><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
 <link rel="shortcut icon" href="/favicons/favicon.ico" >
@@ -18,17 +17,22 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Network Operations | Welcome to Corda Guide記事</title><meta property="og:title" content="Network Operations" />
-<meta property="og:description" content="Corda Network Operations
+<title>Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform | Welcome to Corda Guide記事</title><meta property="og:title" content="Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform" />
+<meta property="og:description" content="Dockerformは、CordaノードをDockerコンテナのローカルに簡単にデプロイすることができます
 " />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="/docs/developers/network_operations/" /><meta property="og:site_name" content="Welcome to Corda Guide記事" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/developers/cordapp_development/docker-bootstrap/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-07-29T11:30:24+09:00" />
+<meta property="article:modified_time" content="2021-07-29T11:30:24+09:00" /><meta property="og:site_name" content="Welcome to Corda Guide記事" />
 
-<meta itemprop="name" content="Network Operations">
-<meta itemprop="description" content="Corda Network Operations
-"><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Network Operations"/>
-<meta name="twitter:description" content="Corda Network Operations
+<meta itemprop="name" content="Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform">
+<meta itemprop="description" content="Dockerformは、CordaノードをDockerコンテナのローカルに簡単にデプロイすることができます
+"><meta itemprop="datePublished" content="2021-07-29T11:30:24+09:00" />
+<meta itemprop="dateModified" content="2021-07-29T11:30:24+09:00" />
+<meta itemprop="wordCount" content="39">
+<meta itemprop="keywords" content="docker,bootstrap," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform"/>
+<meta name="twitter:description" content="Dockerformは、CordaノードをDockerコンテナのローカルに簡単にデプロイすることができます
 "/>
 
 
@@ -53,7 +57,7 @@
 
 
   </head>
-  <body class="td-section">
+  <body class="td-page">
     <header>
       
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
@@ -195,10 +199,10 @@
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/developers/network_operations/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section"><span class="title">Network Operations</span></a>
+    <a  href="/docs/developers/network_operations/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section"><span class="title">Network Operations</span></a>
   </li>
   <ul>
-    <li class="collapse show" id="docsdevelopersnetwork_operations">
+    <li class="collapse " id="docsdevelopersnetwork_operations">
       
       
       
@@ -295,10 +299,10 @@
 
 <ul class="td-sidebar-nav__section pr-md-3">
   <li class="td-sidebar-nav__section-title">
-    <a  href="/docs/developers/cordapp_development/" class="align-left pl-0 pr-2 collapsed td-sidebar-link td-sidebar-link__section"><span class="title">CorDapp開発</span></a>
+    <a  href="/docs/developers/cordapp_development/" class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section"><span class="title">CorDapp開発</span></a>
   </li>
   <ul>
-    <li class="collapse " id="docsdeveloperscordapp_development">
+    <li class="collapse show" id="docsdeveloperscordapp_development">
       
       
       
@@ -306,7 +310,7 @@
         
           
           
-          <a class="td-sidebar-link td-sidebar-link__page " id="m-docsdeveloperscordapp_developmentdocker-bootstrap" href="/docs/developers/cordapp_development/docker-bootstrap/"><span>Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform</span></a>
+          <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsdeveloperscordapp_developmentdocker-bootstrap" href="/docs/developers/cordapp_development/docker-bootstrap/"><span>Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform</span></a>
         
       
       
@@ -580,6 +584,19 @@
 
 
 
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#メリット">メリット</a></li>
+    <li><a href="#ウォークスルー事例">ウォークスルー事例</a>
+      <ul>
+        <li><a href="#buildgradleの新しいタスク">build.gradleの新しいタスク</a></li>
+        <li><a href="#preparedockernodes-タスクを実行する">prepareDockerNodes &ldquo;タスクを実行する</a></li>
+        <li><a href="#外部データベースを追加する">外部データベースを追加する</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
 
 
             
@@ -645,6 +662,9 @@
 
 
 
+
+
+
 <li class="breadcrumb-item" >
 	<a href="/docs/">ドキュメンテーション</a>
 </li>
@@ -659,8 +679,15 @@
 
 
 
+<li class="breadcrumb-item" >
+	<a href="/docs/developers/cordapp_development/">CorDapp開発</a>
+</li>
+
+
+
+
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/developers/network_operations/">Network Operations</a>
+	<a href="/docs/developers/cordapp_development/docker-bootstrap/">Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform</a>
 </li>
 
 	</ol>
@@ -668,75 +695,60 @@
 
             
 <div class="td-content">
-	<h1>Network Operations</h1>
-  <div class="lead">Corda Network Operations</div>
-	<header class="article-meta">
-		
-		
-			
-				
+	<h1>Docker ComposeでCordaのローカルネットワークを最も簡単にブートストラップする方法: Dockerform</h1>
+    <div class="lead">Dockerformは、CordaノードをDockerコンテナのローカルに簡単にデプロイすることができます</div>
+	       
+	<p>Dockerformは、CordaノードをDockerコンテナのローカルに簡単にデプロイすることができます。</p>
+<p>これは、Cordaのgradleプラグインが提供するタスクで、Network Bootstrapperが生成したアウトプットを使って、ブートストラップされたCordaネットワークを簡単に起動するために使用できる<code>docker-compose.yml</code>ファイルを自動的に生成します。</p>
+<p>Network Bootstrapperの公式ドキュメントは<a href="https://docs.corda.net/docs/corda-os/4.8/network-bootstrapper.html#network-bootstrapper">こちら</a>です。</p>
+<h2 id="メリット">メリット</h2>
+<ul>
+<li>Network Bootstrapper（こちらでも説明しています）構築を簡略化できるdocker-compose.yamlを自動的に作成します。これにより手動での構築が不要になります。</li>
+<li>Cordaノードとそのデータベースの両方のデプロイメントをより適切に制御できるようになります。</li>
+<li><a href="https://docs.corda.net/docs/corda-enterprise/4.8/operations/deployment/deployment-kubernetes.html">Kubernetes</a>でも使用可能な公式<a href="https://docs.corda.net/docs/corda-os/4.8/docker-image.html#official-corda-docker-image">Dockerイメージ</a>の使用方法を理解することができます。</li>
+</ul>
+<h2 id="ウォークスルー事例">ウォークスルー事例</h2>
+<p>ドキュメントには、Dockerformがどのように機能するかが非常によく説明されています。ここでは、R3のGitHubにあるCorDappのサンプルを見てみましょう。</p>
+<p><a href="https://github.com/corda/samples-kotlin/tree/master/Features/dockerform-yocordapp">https://github.com/corda/samples-kotlin/tree/master/Features/dockerform-yocordapp</a> .</p>
 
 
-			
-				
+<div class="pageinfo pageinfo-primary">
+<p>Dockerformについてのドキュメントは<a href="https://docs.corda.net/docs/corda-os/4.8/generating-a-node.html#use-cordform-and-dockerform-to-create-a-set-of-local-nodes-automatically">こちら</a>。</p>
 
-
-			
-		
-		
-	</header>
-	
-        <div class="section-index">
-    
-    
-    
-    
-    
-    <hr class="panel-line">
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-    
 </div>
 
+<h3 id="buildgradleの新しいタスク">build.gradleの新しいタスク</h3>
+<ul>
+<li>外部からSSHでDockerコンテナに接続するために必要な &ldquo;sshdPort &ldquo;を追加します
+<ul>
+<li>ノードに使用する公式Corda Docker Imageを宣言します</li>
+<li>外部からSSHでDockerコンテナに接続するために必要な &ldquo;sshdPort &ldquo;を追加します</li>
+</ul>
+</li>
+</ul>
+<img src="/images/docker-1.png" alt="drawing" style="width:600px;"/>
+<h3 id="preparedockernodes-タスクを実行する">prepareDockerNodes &ldquo;タスクを実行する</h3>
+<p><code>./gradlew prepareDockerNodes</code>を実行すると、<code>/build/nodes</code>フォルダ内に以下のようなアウトプットが作成されます。</p>
+<ul>
+<li><code>docker-compose.yaml</code>は、<code>prepareDockerNodes</code>タスクから取得した情報で自動的に生成されます。</li>
+</ul>
+<img src="/images/docker-2.png" alt="drawing" style="width:300px;"/>
+<p>以下は、<code>docker-compose.yaml</code>の内容です。Dockerのすべてのボリュームが、<code>build/nodes</code>内に生成されたフォルダに関連付けられています。</p>
+<img src="/images/docker-3.png" alt="drawing" style="width:600px;"/>
+<h3 id="外部データベースを追加する">外部データベースを追加する</h3>
+<p>上記の例ではH2データベースを使用していますが、他のデータベースを追加することも可能です。DockerformがDockerコンテナの作成を行います。PostgreSQLを使った例を見てみましょう。</p>
+
+
+<div class="pageinfo pageinfo-primary">
+<p>こちらの内容は、<a href="https://www.notion.so/JP-Docker-Compose-Corda-Dockerform-8fd2801bee984865ba2822ee018ad6d4#4c0677cf98d84e9d8bb8274c63c28d96">こちら</a>のドキュメントにも記載されています。</p>
+
+</div>
+
+<p>ドキュメントに記載されている手順が完了したら、<code>./gradlew prepareDockerNodes</code>を実行します。ここでは、出力と<code>docker-compose.yaml</code> が更新されます。PostgreSQLのパラメータを設定した新しいサービスである<code>notary-db</code>があります。</p>
+<img src="/images/docker-4.png" alt="drawing" style="width:600px;"/>
+<p>また、Dockerformは上記のDocker Composeで使用されるPostgreSQLのDockerfileと、データベースを初期化するスクリプトも作成します。</p>
+<img src="/images/docker-5.png" alt="drawing" style="width:600px;"/>
+<img src="/images/docker-6.png" alt="drawing" style="width:800px;"/>
 	
 		<style>
   .feedback--answer {
@@ -801,9 +813,10 @@
 		<br />
 	
 	
-	 January 1, 0001
-
+	<div class="text-muted mt-5 pt-3 border-top"> July 29, 2021
 </div>
+</div>
+
 
           </main>
         </div>
