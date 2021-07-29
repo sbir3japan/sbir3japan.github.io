@@ -1,6 +1,6 @@
 #  Corda Guide Usage
 
-These pages explain how to add more documentation, and some of the site design.
+These pages explain how to add and submit documentation to Corda Guide.
 
 Hugo has extensive [documentation](https://gohugo.io/getting-started/quick-start/).
 

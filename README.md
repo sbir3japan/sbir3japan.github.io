@@ -1,4 +1,5 @@
 # Corda Guide (under construction)
+[![github pages](https://github.com/sbir3japan/sbir3japan.github.io/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/sbir3japan/sbir3japan.github.io/actions/workflows/gh-pages.yml)
 
 This is a version of Corda Guide by SBI R3 Japan based on Hugo. It is not the official Corda Guide, which can be found [here](https://support.sbir3japan.co.jp/hc/ja).
 
@@ -25,6 +26,7 @@ You will need:
 
 * [hugo](https://github.com/gohugoio/hugo/releases)  (a single binary on all platforms)
     * Use the latest **extended** version
+* [npm](https://nodejs.org/en/download/) 
 * a text editor: we strongly recommend [Visual Studio Code](https://code.visualstudio.com/).
 
 ## Quick Start
