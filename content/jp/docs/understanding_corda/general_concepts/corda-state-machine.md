@@ -4,6 +4,8 @@ linkTitle: "Corda State Machine 概要"
 date: 2021-08-21T19:37:43+09:00
 description: >
   Summary of Corda state machine
+
+tags: ["state machine", "cordapp"]
 ---
 
 {{% pageinfo %}}
