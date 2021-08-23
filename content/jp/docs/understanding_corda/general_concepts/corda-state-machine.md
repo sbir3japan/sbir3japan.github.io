@@ -1,9 +1,9 @@
 ---
-title: "Corda State Machine"
-linkTitle: "Corda State Machine"
+title: "Corda State Machine 概要"
+linkTitle: "Corda State Machine 概要"
 date: 2021-08-21T19:37:43+09:00
 description: >
-  Introduction of Corda state machine
+  Summary of Corda state machine
 ---
 
 {{% pageinfo %}}
