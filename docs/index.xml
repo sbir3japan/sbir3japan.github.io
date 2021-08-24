@@ -4,7 +4,7 @@
     <link>/docs/</link>
     <description>Recent content on Welcome to Corda Guide記事</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 29 Jul 2021 11:30:24 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 21 Aug 2021 19:37:43 +0900</lastBuildDate>
     
 	  <atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,6 +13,133 @@
         
       
     
+    
+    <item>
+      <title>Docs: Corda State Machine 概要</title>
+      <link>/docs/understanding_corda/general_concepts/corda-state-machine/</link>
+      <pubDate>Sat, 21 Aug 2021 19:37:43 +0900</pubDate>
+      
+      <guid>/docs/understanding_corda/general_concepts/corda-state-machine/</guid>
+      <description>
+        
+        
+        &lt;p&gt;
+
+&lt;div class=&#34;pageinfo pageinfo-primary&#34;&gt;
+&lt;p&gt;この記事はR3ブログから翻訳されています。英文オリジナルの記事は&lt;a href=&#34;https://www.corda.net/blog/overview-of-the-corda-state-machine/&#34;&gt;こちら&lt;/a&gt;。&lt;/p&gt;
+
+&lt;/div&gt;
+
+CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のないプログラムとして記述できます。しかし、実行時には多くの分岐や補完的な動作が発生します。例えば・・&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Checkpointでの状態保存（障害耐性確保の為）&lt;/li&gt;
+&lt;li&gt;SubFlowの実行&lt;/li&gt;
+&lt;li&gt;他のノードへのメッセージ送信とその後の受信待機&lt;/li&gt;
+&lt;li&gt;非同期呼び出しと、その結果待ち&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;等です。&lt;/p&gt;
+&lt;p&gt;Cordaは、Quasar fiber をベースにしたState Machine上で動作することで、こうした分岐／補完動作を実現しています。&lt;/p&gt;
+&lt;p&gt;この記事は、こうした動作の概要を説明することが目的です。動作を理解することで、Cordaノードの運用を行うにあたっての基礎になると考えます。&lt;/p&gt;
+&lt;h3 id=&#34;注意事項&#34;&gt;注意事項&lt;/h3&gt;
+&lt;p&gt;概念の説明を中心に行っていて、エラー処理を無視しています。Cordaのステートマシン/フローフレームワーク/ P2Pメッセージングに実際に変更を加える場合は、もう少し詳細を理解する必要があります。技術的詳細については&lt;a href=&#34;https://docs.corda.net/contributing-flow-internals.html?highlight=state%20machine#flow-framework-internals&#34;&gt;Cordaの英文ドキュメントサイト&lt;/a&gt;をご覧ください。
+現在の実装に基づいて説明していますが、将来変更される可能性があります。CorDappを作成する場合は、公式のドキュメントとAPIに基づいて設計してください。ドキュメントを理解する助けとなる事がこの記事の目的であって、技術的な代替手段を検討するためのものではありません。&lt;/p&gt;
+&lt;h1 id=&#34;quasarとは&#34;&gt;Quasarとは？&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.paralleluniverse.co/quasar/&#34;&gt;Quasar&lt;/a&gt;は、Javaバイトコードの巧妙な書き換えと例外を利用して、継続（contiuation、情報処理用語でプログラムの実行に関して、ある時点で中断され、評価されていない残りのプログラムを再度実行する機能を指す）を提供するJavaライブラリです。&lt;/p&gt;
+&lt;p&gt;Quasarにおけるもっとも重要な概念はfiberです。fiberとは、プログラムコードにおけるスレッドのようなものですが、fiberは自らを一時停止できます。その時点で、その計算状態を保存することができます。保存された状態を元に戻し、そこから再び計算を始めることができます。&lt;/p&gt;
+&lt;p&gt;さて、この機能を実現する仕組みをまずは学びましょう。&lt;/p&gt;
+&lt;p&gt;ユーザーは，中断可能であるすべての関数に対して&lt;code&gt;@Suspendable&lt;/code&gt;というアノテーションをつける必要があります。起動時とJITコンパイルの直前に、Quasarは，&lt;code&gt;@Suspendable&lt;/code&gt;メソッドのバイトコードを書き換えます。具体的には、&lt;code&gt;throws SuspendExecution&lt;/code&gt;を関数定義に追加し,全ての&lt;code&gt;catch&lt;/code&gt;ブロックに、&lt;code&gt;SuspendExecution&lt;/code&gt;を再スローするコードを追加します。この例外をユーザーコードでキャッチさせないためです。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-1.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;fiberを中断するために、プログラムはQuasarの特定の関数（例えば?&lt;code&gt;parkAndSerialize&lt;/code&gt;）を呼び出します。この関数は&lt;code&gt;SuspendExecution&lt;/code&gt;を投げ、投げられたこの例外はすべてのユーザーコードを通過し、Quasarによってキャッチされます。Quasarは、コールスタックを抽出し、シリアライズして保存します。バイトコードインストゥルメンテーション（byte code instrumentation）は、コールスタック上の関数が使用する変数、ローカルオブジェクト、スレッドが使用しているローカルストレージ等の値を全て確保でき、fiberはこのひと固まりのスレッドを再構成することができます。また、これらすべてをメモリに保存した後、CPUは現在の実行スレッドを解放するので、CPUは他の何かを実行するためにこの実行スレッドを利用可能になります。&lt;/p&gt;
+&lt;p&gt;ファイバーを復元すると、コールスタックが新しいスレッドで再作成され、すべての値が記録されたとおりに関数に渡され、スレッドのローカルストレージが復元され、停止したところから実行が続行されます。&lt;/p&gt;
+&lt;p&gt;これを機能させるには、中断するスタック内のすべての関数に&lt;code&gt;@Suspendable&lt;/code&gt;アノテーション付けて、クエーサーがそれらを計測できるようにすることが重要です。そうしないと、例外がキャッチされるか、パラメーターが正しくキャプチャされず、fiberが正しく中断されません。これは、CorDappsのエラーの一般的な原因（transaction context missingエラーなど）であり、スタックのどの関数に注釈が欠けているかを把握するのは非常に難しい場合があります。&lt;/p&gt;
+&lt;p&gt;CordaのFlowはQuasarをラップし、それを使用して、CorDappのflow logic実装に含まれるKotlinまたはJavaのコードを、一時停止可能なコードに変換します。一時停止可能だと指定した場所をcheckpointと呼び、システムは任意のcheckpointからコードを再実行できる事が保証されます。&lt;/p&gt;
+&lt;h1 id=&#34;flowの状態遷移&#34;&gt;Flowの状態遷移&lt;/h1&gt;
+&lt;p&gt;さて、FlowがCheckPointで中止＆再開できる仕組みを見てきたところで、次にFlowの状態遷移についてみていきましょう。FlowはQuasarによる一時停止機能がある事を前提に、次のような状態遷移を想定しています。&lt;/p&gt;
+&lt;p&gt;まず、すべてのフローはPending状態から始まります。次にrunningに移行します。最も簡単なケースでは、最終的にコードの最後に到達してsuccessに移行し、結果が返されます。コード途中で指定され、保存されていたCheckPointは全て消去されます。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;エラーが発生した場合はErroedに移行し、&lt;code&gt;FlowHospital&lt;/code&gt;が管理することになります。&lt;code&gt;FlowHospital&lt;/code&gt;では3つの可能性があります。&lt;/p&gt;
+&lt;p&gt;一時的なエラーの場合、Pendingに戻って再実行されます。この時、Flowは最初から実行されるのではなく、記録された最後のチェックポイントから再試行されます。
+エラーが致命的である場合、フローは失敗Failedとして終了します。エラーが呼び出し元に返され、すべてのCheckPointが削除されます。
+エラーを単純に再試行することはできないが、失敗させることができない場合（たとえば、元帳の整合性が失われる可能性がある場合など）、Flowはheld状態に移行します。hold状態の解消には、次のような人間の介入が必要です。
+エラーの原因となった状態を修正する。
+最後のCheckPointから手動でフローを再開する。（現状、これはNodeの再起動によって実現します。将来のリリースでRPCによる再開が実装される予定です）&lt;/p&gt;
+&lt;h1 id=&#34;flowのライフサイクル&#34;&gt;Flowのライフサイクル&lt;/h1&gt;
+&lt;p&gt;Flowのライフサイクルを考えるとき、Cordaノードを「ユーザースペース」と「カーネルスペース」に分けて考えると便利です。「ユーザースペース」は、ユーザーが提供するFlow logicを実行し、「カーネルスペース」は、ユーザーの提供するコードを実行するFlowフレームワークです。&lt;/p&gt;
+&lt;p&gt;典型的なフローはあるスレッドで実行が開始され、ネットワーク上の他のノードに送付され、帰ってきたレスポンスを受けて再開するという流れをたどります。この流れの詳細を確認していきましょう。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-flowの開始&#34;&gt;1. Flowの開始&lt;/h2&gt;
+&lt;p&gt;RPCを介してFlowがキックされると、&lt;code&gt;StartFlow&lt;/code&gt;がカーネルスペースで呼び出されます。これにより、Flowを開始するイベントがスケジュールされます（RPC処理とメッセージのデシリアライズ処理は別のスレッドプールで行われることに注意してください）CPUの実行スレッドが使用可能になるとすぐに、メッセージの処理を開始し、FlowはPendingからRunningに移行します。この作業には以下の作業も含まれます。&lt;/p&gt;
+&lt;p&gt;スレッドを取得する。
+データベース接続を取得して（fiberを保存するための）トランザクションを開く。
+CorDappから要求されたFlowLogicをインスタンス化し、必要なパラメータを渡す。
+FlowLogicのrun関数を呼び出す。&lt;/p&gt;
+&lt;h2 id=&#34;2-実行と一時停止&#34;&gt;2. 実行と一時停止&lt;/h2&gt;
+&lt;p&gt;次に、ユーザーコードは、一時停止が必要なポイントに到達するまで実行されます。一時停止の最も一般的な条件は次のとおりです。&lt;/p&gt;
+&lt;p&gt;メッセージを送信した場合
+FlowLogic.sleep()の呼び出し。つまり、明示的に一定時間Flowを一時停止する場合
+Flow非同期API（&lt;code&gt;FlowLogic.await()&lt;/code&gt;）の使用&lt;/p&gt;
+&lt;p&gt;ここでは、Flowが他の一つのノードと&lt;code&gt;sendAndReceive()&lt;/code&gt;を用いて通信する。この関数はカーネル空間を呼び出し、次のことを行います。&lt;/p&gt;
+&lt;p&gt;ペイロードをシリアル化して、この関数に渡します。
+メッセージを送信キューに入れると、P2Pメッセージングシステムによってピックアップされます。（P2PメッセージングシステムArtemisは、それだけで一つの記事が書けるほどのものです。ここでは、このシステムは頑健で、正確に1度だけメッセージを送信することができることだけを述べます。）このシステムによって、メッセージが正しく配信され（いずれ）返信を受け取ることができると想定できます。
+次に、Quasarの&lt;code&gt;parkAndSerialize&lt;/code&gt;関数を呼び出して、前節で示した通りコールスタック他の情報を記録します。
+ノードはこのFlowに割り当てられたリソースの中で、Quasarが無視してしまう部分の後処理をする必要もあります。典型的には、開いているデータベーストランザクションをコミットして、データベース接続を解放する必要があります．他のリソース（ロックなど）も同様に処理する必要があります。これはCordaコードで行われます。
+Cordaはまた、Checkpointでのコピーをデータベースに保存するため、中断されたフローも再起動することができます。
+Kryoシリアライザーを使用するので、スタック上で見つかったものはすべてシリアル化できます。これは、RPCおよびP2P通信で使用されるシリアライザやStatesをデータベースに保存する際に使われるシリアライザとは異なる仕組みです。通信用やState用はその内容に制約や制限が必要ですが、CheckPoint用シリアライザは、すべてを受け入れる必要があります。一方で、データ形式や構造の変化に対処する必要はありません。
+シリアルの際に無視する必要のあるもの（主にノードやState Machineそのものなどで、デシリアライズ処理時にも当然にメモリ上に存在するモノ）のリストがあります。
+特定のクラス（Cordaサービスなど）は&lt;code&gt;SerializeAsToken&lt;/code&gt;インターフェースを実装していて、クラスインスタンスの代わりにトークン化したデータだけが記録されます。これらのクラスは、デシリアライズ処理の際にインスタンスを取得するメカニズムを別途指定する必要があります。特にシングルトンクラスをシリアライズする時に役立ちます。&lt;/p&gt;
+&lt;p&gt;その後、fiberはRunningからSuspendedに移行し、CPUの実行スレッドは他のタスクを実行できるようになります。&lt;/p&gt;
+&lt;h2 id=&#34;3-メッセージ受信と再開&#34;&gt;3. メッセージ受信と再開&lt;/h2&gt;
+&lt;p&gt;送信したメッセージに対する応答メッセージが到着すると、P2Pメッセージングシステムは、fiberへ再起動を促すメッセージをイベントキューに置きます。CPUの実行スレッドが使用可能になると、中断されたfiberの状態遷移が次ようにして再開します。&lt;/p&gt;
+&lt;p&gt;コールスタックと変数が再作成されます
+リソースが再取得されます（例えば，DB接続およびトランザクションが開かれます）
+受信したメッセージはデシリアライズされます
+受信メッセージは、Flowが再びSuspendedするか、終了したときにのみP2Pメッセージングシステム上から削除されます。何らかのエラーに伴うフェイルオーバーが起きた場合、フローはメッセージ送信直後のチェックポイントから再実行され、P2Pメッセージングキューからメッセージを再受信します。
+次に、ユーザー空間のFlowLogicが、&lt;code&gt;sendAndReceive&lt;/code&gt; を叩いた時点の状態で呼び出され、メッセージの内容を関数呼び出しの戻り値として渡します。&lt;/p&gt;
+&lt;h2 id=&#34;4-実行完了&#34;&gt;4. 実行完了&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;FlowLogic&lt;/code&gt;が最後まで正常に完了すると、制御はカーネル空間に戻り、次の処理が行われます。&lt;/p&gt;
+&lt;p&gt;データベーストランザクションがコミットされます
+このフローのすべてのCheckPointがデータベースから削除されます。
+P2Pメッセージングシステムに保存されていた未処理のメッセージはキューから削除されます。
+関数戻り値はRPCプールに渡されます。シリアル化されて呼び出し元のクライアントに送り返すことになります。
+データベース接続が解放され、fiberが終了し、CPUの実行スレッドが解放されます。&lt;/p&gt;
+&lt;h1 id=&#34;含意&#34;&gt;含意&lt;/h1&gt;
+&lt;p&gt;この上記の実装は、CorDappsの開発者にいくつかの影響を与えます&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;別途、生のJDBC接続を張りに行っても通常のACIDデータベースロジックをCorDappsで単純に使用することはできません。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Flow logic中で、DBを単純にコミットすることはできません（FlowLogic.sleep(1.millis)は妥当で現実的な回避策です）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一時停止により、想定外のDBコミットが発生する可能性があります。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Flowが失敗した場合、DBトランザクションはロールバックされます。使用しているJDBC接続で別途何かを行った場合、それは失われます。再試行すると、フローは最後のメッセージから再開されるため、DBトランザクションが再発生します。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DBトランザクションをロールバックすることはできません。FlowLogic内はFlowベースのトランザクション内にいるためです。SQLコードを直接記述して何か問題が発生し、ロールバックした場合、元帳の整合性が脅かされる可能性があります&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Flowのすべての部分が少なくとも1回実行されます。ただし、問題が発生した場合、最後のCheckpointからエラーが発生したポイントの間の部分が再実行されます。Flowは、ロールバックを介して発生するすべてのDBトランザクションをクリアしてクリーンに再実行できるようにしますが、サードパーティコンポーネントとの他のやり取りは、べき等であるか、複数回の呼び出しを処理できる必要があります。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;@Suspendable&lt;/code&gt;アノテーションは、非常に注意深く使用なければなりません。&lt;code&gt;@Suspendable&lt;/code&gt; ではない関数から、&lt;code&gt;@Suspendable&lt;/code&gt;な関数を呼ぶことはできません。（逆は問題はありません。&lt;code&gt;@Suspendable&lt;/code&gt; な関数からデータベース操作などの&lt;code&gt;@Suspendable&lt;/code&gt;ではない関数を呼び出すことは可能です。）
+バイトコードのスキャン/再読み込みは、かなり時間がかかります。サスペンド操作は安価ではありません。
+バイトコードインストゥルメンテーション（byte code instrumentation）がうまくできないコードを書いてしまう事があります。（例えば、Kotlinの?.map{}操作内で&lt;code&gt;@Suspendable&lt;/code&gt;関数を使用する等）この場合、再生成されるバイトコードが無効化され、JVMが実行時にあきらめる可能性があります。これは&lt;a href=&#34;(https://youtrack.jetbrains.com/issue/KT-19251)&#34;&gt;Kotlinの既知の問題&lt;/a&gt;であり、この問題が発生した場合、以下のようなコンパイルオプションを指定することで改善できます。
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span style=&#34;color:#000&#34;&gt;compileKotlin&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;{&lt;/span&gt;
+     &lt;span style=&#34;color:#000&#34;&gt;kotlinOptions&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;{&lt;/span&gt; 
+          &lt;span style=&#34;color:#000&#34;&gt;freeCompilerArgs&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#4e9a06&#34;&gt;&amp;#34;-Xnormalize-constructor-calls=enable&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;]&lt;/span&gt;
+     &lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#ce5c00;font-weight:bold&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
     
     <item>
       <title>Docs: DockerComposeを使用したネットワークブートストラップする</title>

@@ -17,22 +17,22 @@
 <link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
 <link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
 
-<title>Corda 4.6 Introduction | Welcome to Corda Guide記事</title><meta property="og:title" content="Corda 4.6 Introduction" />
-<meta property="og:description" content="Introduction of Corda 4.6
+<title>Corda State Machine 概要 | Welcome to Corda Guide記事</title><meta property="og:title" content="Corda State Machine 概要" />
+<meta property="og:description" content="Summary of Corda state machine
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/docs/understanding_corda/general_concepts/corda4.6-introduction/" /><meta property="article:section" content="docs" />
-<meta property="article:published_time" content="2021-07-11T19:37:43+09:00" />
-<meta property="article:modified_time" content="2021-07-11T19:37:43+09:00" /><meta property="og:site_name" content="Welcome to Corda Guide記事" />
+<meta property="og:url" content="/docs/understanding_corda/general_concepts/corda-state-machine/" /><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2021-08-21T19:37:43+09:00" />
+<meta property="article:modified_time" content="2021-08-21T19:37:43+09:00" /><meta property="og:site_name" content="Welcome to Corda Guide記事" />
 
-<meta itemprop="name" content="Corda 4.6 Introduction">
-<meta itemprop="description" content="Introduction of Corda 4.6
-"><meta itemprop="datePublished" content="2021-07-11T19:37:43+09:00" />
-<meta itemprop="dateModified" content="2021-07-11T19:37:43+09:00" />
-<meta itemprop="wordCount" content="37">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Corda 4.6 Introduction"/>
-<meta name="twitter:description" content="Introduction of Corda 4.6
+<meta itemprop="name" content="Corda State Machine 概要">
+<meta itemprop="description" content="Summary of Corda state machine
+"><meta itemprop="datePublished" content="2021-08-21T19:37:43+09:00" />
+<meta itemprop="dateModified" content="2021-08-21T19:37:43+09:00" />
+<meta itemprop="wordCount" content="110">
+<meta itemprop="keywords" content="state machine,cordapp," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Corda State Machine 概要"/>
+<meta name="twitter:description" content="Summary of Corda state machine
 "/>
 
 
@@ -542,7 +542,7 @@
         
           
           
-          <a class="td-sidebar-link td-sidebar-link__page " id="m-docsunderstanding_cordageneral_conceptscorda-state-machine" href="/docs/understanding_corda/general_concepts/corda-state-machine/"><span>Corda State Machine 概要</span></a>
+          <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsunderstanding_cordageneral_conceptscorda-state-machine" href="/docs/understanding_corda/general_concepts/corda-state-machine/"><span>Corda State Machine 概要</span></a>
         
       
       
@@ -550,7 +550,7 @@
         
           
           
-          <a class="td-sidebar-link td-sidebar-link__page  active" id="m-docsunderstanding_cordageneral_conceptscorda46-introduction" href="/docs/understanding_corda/general_concepts/corda4.6-introduction/"><span>Corda 4.6 Introduction</span></a>
+          <a class="td-sidebar-link td-sidebar-link__page " id="m-docsunderstanding_cordageneral_conceptscorda46-introduction" href="/docs/understanding_corda/general_concepts/corda4.6-introduction/"><span>Corda 4.6 Introduction</span></a>
         
       
       
@@ -594,10 +594,18 @@
 
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#flow管理">Flow管理</a></li>
-    <li><a href="#メンバーシップとネットワークの改善">メンバーシップとネットワークの改善</a></li>
-    <li><a href="#開発者向けの改善">開発者向けの改善</a></li>
-    <li><a href="#その他の追加機能">その他の追加機能</a></li>
+    <li>
+      <ul>
+        <li><a href="#注意事項">注意事項</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-flowの開始">1. Flowの開始</a></li>
+    <li><a href="#2-実行と一時停止">2. 実行と一時停止</a></li>
+    <li><a href="#3-メッセージ受信と再開">3. メッセージ受信と再開</a></li>
+    <li><a href="#4-実行完了">4. 実行完了</a></li>
   </ul>
 </nav>
 
@@ -695,7 +703,7 @@
 
 
 <li class="breadcrumb-item active" aria-current="page">
-	<a href="/docs/understanding_corda/general_concepts/corda4.6-introduction/">Corda 4.6 Introduction</a>
+	<a href="/docs/understanding_corda/general_concepts/corda-state-machine/">Corda State Machine 概要</a>
 </li>
 
 	</ol>
@@ -703,53 +711,124 @@
 
             
 <div class="td-content">
-	<h1>Corda 4.6 Introduction</h1>
-    <div class="lead">Introduction of Corda 4.6</div>
+	<h1>Corda State Machine 概要</h1>
+    <div class="lead">Summary of Corda state machine</div>
 	       
-	
+	<p>
 
 <div class="pageinfo pageinfo-primary">
-<p>こちらの記事はR3社のテックリードであるMike Wardによる記事の抄訳です。詳細については元記事をご覧ください。
-R3社から、Corda4.6がもうすぐリリースされます。今回のリリースは、次の3つの領域に重点を置いています。</p>
-<p>Flow管理
-メンバーシップとネットワークの改善
-開発者向けの改善</p>
+<p>この記事はR3ブログから翻訳されています。英文オリジナルの記事は<a href="https://www.corda.net/blog/overview-of-the-corda-state-machine/">こちら</a>。</p>
 
 </div>
 
-<h2 id="flow管理">Flow管理</h2>
-<p>Cordaは、企業をまたいでワークフローを実現するFlowという機能を備えています。これらのワークフローの管理は困難な場合が多いです。今回のリリースでは，実行中のFlowの管理方法を改善しました。</p>
+CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のないプログラムとして記述できます。しかし、実行時には多くの分岐や補完的な動作が発生します。例えば・・</p>
 <ul>
-<li>シェル/ RPCを介してFlowCheckpointを検索および検査する機能が追加されました。本番で長い時間使われるようになった結果、実行中のFlowを管理するツールが必要になりました。この機能を使用すると、Flowの開始時間、到達したステップ、渡されたパラメーターなど、実行中のFlowに関する豊富な情報をリモートで取得して、実行を管理することができます。これは、以前の「FlowHospital」を拡張しています。ユーザーはCorDappなどのいくつかのフィルター基準からFlowを照会し、進行状況等や各種の情報を取得できます。</li>
-<li>Nodeを再起動せずにFlowを再試行できるようになりました。ノードオペレーターは、再試行をトリガーするためにノードを再起動する必要がなく、RPCを介してHospitalized Flowを再試行できるようになりました。さらに、ノードオペレーターは、問題のあるFlowを「再起動しない」としてマークし、ノードが再起動されたときに自動的に再試行されないようにすることができます。</li>
-<li>一意のIDを使用して、フローの開始が重複しないようにすることができるようになりました。RPCクライアントがバージョンアップし、クライアントがFlowの二重呼び出しを排除できるようになりました。これにより、Flowの開始に失敗した場合にクライアントが適切なアクションを実行できるようになるため、エコシステム全体の回復力も向上します。</li>
+<li>Checkpointでの状態保存（障害耐性確保の為）</li>
+<li>SubFlowの実行</li>
+<li>他のノードへのメッセージ送信とその後の受信待機</li>
+<li>非同期呼び出しと、その結果待ち</li>
 </ul>
-<hr>
-<h2 id="メンバーシップとネットワークの改善">メンバーシップとネットワークの改善</h2>
-<p>多くの実運用経験によれば、CorDappオペレーターが参加者を管理する為に多くのコストを投じていることが判明しています。プライベートネットワークでも、the Corda Networkなどのより大きなネットワークでも、オペレーターはユーザーを特定し、それらの参加者について確立したメタデータを利用してユーザーを管理する必要があります。このニーズに対応するための初期機能を実装しました。</p>
+<p>等です。</p>
+<p>Cordaは、Quasar fiber をベースにしたState Machine上で動作することで、こうした分岐／補完動作を実現しています。</p>
+<p>この記事は、こうした動作の概要を説明することが目的です。動作を理解することで、Cordaノードの運用を行うにあたっての基礎になると考えます。</p>
+<h3 id="注意事項">注意事項</h3>
+<p>概念の説明を中心に行っていて、エラー処理を無視しています。Cordaのステートマシン/フローフレームワーク/ P2Pメッセージングに実際に変更を加える場合は、もう少し詳細を理解する必要があります。技術的詳細については<a href="https://docs.corda.net/contributing-flow-internals.html?highlight=state%20machine#flow-framework-internals">Cordaの英文ドキュメントサイト</a>をご覧ください。
+現在の実装に基づいて説明していますが、将来変更される可能性があります。CorDappを作成する場合は、公式のドキュメントとAPIに基づいて設計してください。ドキュメントを理解する助けとなる事がこの記事の目的であって、技術的な代替手段を検討するためのものではありません。</p>
+<h1 id="quasarとは">Quasarとは？</h1>
+<p><a href="https://docs.paralleluniverse.co/quasar/">Quasar</a>は、Javaバイトコードの巧妙な書き換えと例外を利用して、継続（contiuation、情報処理用語でプログラムの実行に関して、ある時点で中断され、評価されていない残りのプログラムを再度実行する機能を指す）を提供するJavaライブラリです。</p>
+<p>Quasarにおけるもっとも重要な概念はfiberです。fiberとは、プログラムコードにおけるスレッドのようなものですが、fiberは自らを一時停止できます。その時点で、その計算状態を保存することができます。保存された状態を元に戻し、そこから再び計算を始めることができます。</p>
+<p>さて、この機能を実現する仕組みをまずは学びましょう。</p>
+<p>ユーザーは，中断可能であるすべての関数に対して<code>@Suspendable</code>というアノテーションをつける必要があります。起動時とJITコンパイルの直前に、Quasarは，<code>@Suspendable</code>メソッドのバイトコードを書き換えます。具体的には、<code>throws SuspendExecution</code>を関数定義に追加し,全ての<code>catch</code>ブロックに、<code>SuspendExecution</code>を再スローするコードを追加します。この例外をユーザーコードでキャッチさせないためです。</p>
+<p><img src="/images/corda-state-machine-1.png" alt="image"></p>
+<p>fiberを中断するために、プログラムはQuasarの特定の関数（例えば?<code>parkAndSerialize</code>）を呼び出します。この関数は<code>SuspendExecution</code>を投げ、投げられたこの例外はすべてのユーザーコードを通過し、Quasarによってキャッチされます。Quasarは、コールスタックを抽出し、シリアライズして保存します。バイトコードインストゥルメンテーション（byte code instrumentation）は、コールスタック上の関数が使用する変数、ローカルオブジェクト、スレッドが使用しているローカルストレージ等の値を全て確保でき、fiberはこのひと固まりのスレッドを再構成することができます。また、これらすべてをメモリに保存した後、CPUは現在の実行スレッドを解放するので、CPUは他の何かを実行するためにこの実行スレッドを利用可能になります。</p>
+<p>ファイバーを復元すると、コールスタックが新しいスレッドで再作成され、すべての値が記録されたとおりに関数に渡され、スレッドのローカルストレージが復元され、停止したところから実行が続行されます。</p>
+<p>これを機能させるには、中断するスタック内のすべての関数に<code>@Suspendable</code>アノテーション付けて、クエーサーがそれらを計測できるようにすることが重要です。そうしないと、例外がキャッチされるか、パラメーターが正しくキャプチャされず、fiberが正しく中断されません。これは、CorDappsのエラーの一般的な原因（transaction context missingエラーなど）であり、スタックのどの関数に注釈が欠けているかを把握するのは非常に難しい場合があります。</p>
+<p>CordaのFlowはQuasarをラップし、それを使用して、CorDappのflow logic実装に含まれるKotlinまたはJavaのコードを、一時停止可能なコードに変換します。一時停止可能だと指定した場所をcheckpointと呼び、システムは任意のcheckpointからコードを再実行できる事が保証されます。</p>
+<h1 id="flowの状態遷移">Flowの状態遷移</h1>
+<p>さて、FlowがCheckPointで中止＆再開できる仕組みを見てきたところで、次にFlowの状態遷移についてみていきましょう。FlowはQuasarによる一時停止機能がある事を前提に、次のような状態遷移を想定しています。</p>
+<p>まず、すべてのフローはPending状態から始まります。次にrunningに移行します。最も簡単なケースでは、最終的にコードの最後に到達してsuccessに移行し、結果が返されます。コード途中で指定され、保存されていたCheckPointは全て消去されます。</p>
+<p><img src="/images/corda-state-machine-2.png" alt="image"></p>
+<p>エラーが発生した場合はErroedに移行し、<code>FlowHospital</code>が管理することになります。<code>FlowHospital</code>では3つの可能性があります。</p>
+<p>一時的なエラーの場合、Pendingに戻って再実行されます。この時、Flowは最初から実行されるのではなく、記録された最後のチェックポイントから再試行されます。
+エラーが致命的である場合、フローは失敗Failedとして終了します。エラーが呼び出し元に返され、すべてのCheckPointが削除されます。
+エラーを単純に再試行することはできないが、失敗させることができない場合（たとえば、元帳の整合性が失われる可能性がある場合など）、Flowはheld状態に移行します。hold状態の解消には、次のような人間の介入が必要です。
+エラーの原因となった状態を修正する。
+最後のCheckPointから手動でフローを再開する。（現状、これはNodeの再起動によって実現します。将来のリリースでRPCによる再開が実装される予定です）</p>
+<h1 id="flowのライフサイクル">Flowのライフサイクル</h1>
+<p>Flowのライフサイクルを考えるとき、Cordaノードを「ユーザースペース」と「カーネルスペース」に分けて考えると便利です。「ユーザースペース」は、ユーザーが提供するFlow logicを実行し、「カーネルスペース」は、ユーザーの提供するコードを実行するFlowフレームワークです。</p>
+<p>典型的なフローはあるスレッドで実行が開始され、ネットワーク上の他のノードに送付され、帰ってきたレスポンスを受けて再開するという流れをたどります。この流れの詳細を確認していきましょう。</p>
+<p><img src="/images/corda-state-machine-3.png" alt="image"></p>
+<h2 id="1-flowの開始">1. Flowの開始</h2>
+<p>RPCを介してFlowがキックされると、<code>StartFlow</code>がカーネルスペースで呼び出されます。これにより、Flowを開始するイベントがスケジュールされます（RPC処理とメッセージのデシリアライズ処理は別のスレッドプールで行われることに注意してください）CPUの実行スレッドが使用可能になるとすぐに、メッセージの処理を開始し、FlowはPendingからRunningに移行します。この作業には以下の作業も含まれます。</p>
+<p>スレッドを取得する。
+データベース接続を取得して（fiberを保存するための）トランザクションを開く。
+CorDappから要求されたFlowLogicをインスタンス化し、必要なパラメータを渡す。
+FlowLogicのrun関数を呼び出す。</p>
+<h2 id="2-実行と一時停止">2. 実行と一時停止</h2>
+<p>次に、ユーザーコードは、一時停止が必要なポイントに到達するまで実行されます。一時停止の最も一般的な条件は次のとおりです。</p>
+<p>メッセージを送信した場合
+FlowLogic.sleep()の呼び出し。つまり、明示的に一定時間Flowを一時停止する場合
+Flow非同期API（<code>FlowLogic.await()</code>）の使用</p>
+<p>ここでは、Flowが他の一つのノードと<code>sendAndReceive()</code>を用いて通信する。この関数はカーネル空間を呼び出し、次のことを行います。</p>
+<p>ペイロードをシリアル化して、この関数に渡します。
+メッセージを送信キューに入れると、P2Pメッセージングシステムによってピックアップされます。（P2PメッセージングシステムArtemisは、それだけで一つの記事が書けるほどのものです。ここでは、このシステムは頑健で、正確に1度だけメッセージを送信することができることだけを述べます。）このシステムによって、メッセージが正しく配信され（いずれ）返信を受け取ることができると想定できます。
+次に、Quasarの<code>parkAndSerialize</code>関数を呼び出して、前節で示した通りコールスタック他の情報を記録します。
+ノードはこのFlowに割り当てられたリソースの中で、Quasarが無視してしまう部分の後処理をする必要もあります。典型的には、開いているデータベーストランザクションをコミットして、データベース接続を解放する必要があります．他のリソース（ロックなど）も同様に処理する必要があります。これはCordaコードで行われます。
+Cordaはまた、Checkpointでのコピーをデータベースに保存するため、中断されたフローも再起動することができます。
+Kryoシリアライザーを使用するので、スタック上で見つかったものはすべてシリアル化できます。これは、RPCおよびP2P通信で使用されるシリアライザやStatesをデータベースに保存する際に使われるシリアライザとは異なる仕組みです。通信用やState用はその内容に制約や制限が必要ですが、CheckPoint用シリアライザは、すべてを受け入れる必要があります。一方で、データ形式や構造の変化に対処する必要はありません。
+シリアルの際に無視する必要のあるもの（主にノードやState Machineそのものなどで、デシリアライズ処理時にも当然にメモリ上に存在するモノ）のリストがあります。
+特定のクラス（Cordaサービスなど）は<code>SerializeAsToken</code>インターフェースを実装していて、クラスインスタンスの代わりにトークン化したデータだけが記録されます。これらのクラスは、デシリアライズ処理の際にインスタンスを取得するメカニズムを別途指定する必要があります。特にシングルトンクラスをシリアライズする時に役立ちます。</p>
+<p>その後、fiberはRunningからSuspendedに移行し、CPUの実行スレッドは他のタスクを実行できるようになります。</p>
+<h2 id="3-メッセージ受信と再開">3. メッセージ受信と再開</h2>
+<p>送信したメッセージに対する応答メッセージが到着すると、P2Pメッセージングシステムは、fiberへ再起動を促すメッセージをイベントキューに置きます。CPUの実行スレッドが使用可能になると、中断されたfiberの状態遷移が次ようにして再開します。</p>
+<p>コールスタックと変数が再作成されます
+リソースが再取得されます（例えば，DB接続およびトランザクションが開かれます）
+受信したメッセージはデシリアライズされます
+受信メッセージは、Flowが再びSuspendedするか、終了したときにのみP2Pメッセージングシステム上から削除されます。何らかのエラーに伴うフェイルオーバーが起きた場合、フローはメッセージ送信直後のチェックポイントから再実行され、P2Pメッセージングキューからメッセージを再受信します。
+次に、ユーザー空間のFlowLogicが、<code>sendAndReceive</code> を叩いた時点の状態で呼び出され、メッセージの内容を関数呼び出しの戻り値として渡します。</p>
+<h2 id="4-実行完了">4. 実行完了</h2>
+<p><code>FlowLogic</code>が最後まで正常に完了すると、制御はカーネル空間に戻り、次の処理が行われます。</p>
+<p>データベーストランザクションがコミットされます
+このフローのすべてのCheckPointがデータベースから削除されます。
+P2Pメッセージングシステムに保存されていた未処理のメッセージはキューから削除されます。
+関数戻り値はRPCプールに渡されます。シリアル化されて呼び出し元のクライアントに送り返すことになります。
+データベース接続が解放され、fiberが終了し、CPUの実行スレッドが解放されます。</p>
+<h1 id="含意">含意</h1>
+<p>この上記の実装は、CorDappsの開発者にいくつかの影響を与えます</p>
 <ul>
-<li>”代表”という参加者の実装。BNO（Business Network Operator)という用語がCordaにはあります。BNOとは、CorDappsをネットワーク参加者に配布し、ネットワークに参加したユーザーを管理する主体を表す用語です。この重要なエンティティがユーザーをより適切に管理できるようにすることを目指しました。手始めに，典型的にはBNOを表す「Primitive」を用意しました．今回のリリースでは、メンバーシップ認証のライフサイクルを管理するツールを紹介し、メンバーシップを管理し、資格を推進し、ビジネスネットワーク内でプライバシーとアクセス許可をきめ細かく設定するためのベストプラクティスを紹介します。</li>
-<li>大規模ネットワークのサポート強化。ネットワークマップリストの配信パフォーマンスを向上させ、ネットワークが数千のノードを含む場合のターンアラウンドタイムを高速化しました。</li>
-<li>Notaryを追加する際のFlag Dayの必要性の除去。新しいNotaryがネットワークのホワイトリストに追加されるたびに更新されたネットワークパラメーターを受け入れた後、Nodeをシャットダウンして再起動する必要がなくなりました。</li>
-</ul>
-<hr>
-<h2 id="開発者向けの改善">開発者向けの改善</h2>
-<p>このリリースでは、開発者がより復元力のあるアプリケーションを構築するのに役立つ多くの改善がなされました。</p>
+<li>
+<p>別途、生のJDBC接続を張りに行っても通常のACIDデータベースロジックをCorDappsで単純に使用することはできません。</p>
 <ul>
-<li>復元できないチェックポイントの検出。Flowはその実行中に、自動的にシリアライズされ、チェックポイントに到達するたびにデシリアライズされるようになりました。これにより、デシリアライズできないチェックポイントを作成するフローコードの自動検出が可能になります。この機能は、運用中のノード構成では無効にすることができます。（主に開発中に使用することを想定しています）</li>
-<li>カスタムシリアライザーの登録を可能にしました。FlowCheckPointの一部として型をシリアル化するときに、カスタムシリアライザーを使用できるようになりました。（もちろん、ほとんどのクラスはカスタムシリアライザーを必要としません。）チェックポイントのシリアル化中に例外をスローするクラスの為の機能です。新しいCheckpointCustomSerializerインターフェイスを実装して、カスタムチェックポイントシリアライザーを作成できます。</li>
+<li>
+<p>Flow logic中で、DBを単純にコミットすることはできません（FlowLogic.sleep(1.millis)は妥当で現実的な回避策です）</p>
+</li>
+<li>
+<p>一時停止により、想定外のDBコミットが発生する可能性があります。</p>
+</li>
+<li>
+<p>Flowが失敗した場合、DBトランザクションはロールバックされます。使用しているJDBC接続で別途何かを行った場合、それは失われます。再試行すると、フローは最後のメッセージから再開されるため、DBトランザクションが再発生します。</p>
+</li>
+<li>
+<p>DBトランザクションをロールバックすることはできません。FlowLogic内はFlowベースのトランザクション内にいるためです。SQLコードを直接記述して何か問題が発生し、ロールバックした場合、元帳の整合性が脅かされる可能性があります</p>
+</li>
 </ul>
-<hr>
-<h2 id="その他の追加機能">その他の追加機能</h2>
-<p>上記3つの重点的な改善に加え、以下のような機能改善がなされています。</p>
-<ul>
-<li>Ledgerの統計データ提供。CordaのLedger（台帳）に関する統計を提供する新しいユーティリティCorDappをリリースします。</li>
-<li>トランザクションチェーンのサイズ、添付ファイルの数、およびトランザクションチェーンのすべてのOutputが消費されたかどうかを示す情報が提供するLedgerGraphというユーティリティーが提供されます。このユーティリティは、トランザクションチェーンが長すぎる場合に，オペレーターがその動作を予測し、場合によっては他の手段を検討することを可能とします。</li>
-<li>インプレースアップグレードの実現。CordaオープンソースからCordaエンタープライズに移行するお客様をよりよく支援したいと考えています。これに向けた最初のステップは、オープンソースとエンタープライズの間でスキーマが一致している事です。これにより、インスタンスの大規模な移行を必要としない、いわゆるインプレースアップグレードが可能になります。</li>
-<li>署名件数カウントツールの改善。中央のコレクターNodeからCorda Enterpriseメータリングデータを取得できるようにMetering Cordappを改善しました。Metering CorDappはスタンドアローンクライアントになりました。クライアントをそのまま使用して、ビジネスネットワークの1つ以上のNodeからJSON形式で測定データを取得できます。各Nodeのシェルに直接アクセスする必要はありません。いずれかのNodeが応答に失敗した場合、クライアントは不足しているデータを収集する後続の試行を容易にします。</li>
-<li>TLS鍵をHSMに保管できるようになりました。TLSキーは、他のCordaサーバーへの安全な接続を確保するために使用されます。これまでのリリースにもこの機能はありましたが、制限がありました。今回のリリースから、あらゆる構成において、HSMにTLSキーを保存できるようになりました。</li>
+</li>
+<li>
+<p>Flowのすべての部分が少なくとも1回実行されます。ただし、問題が発生した場合、最後のCheckpointからエラーが発生したポイントの間の部分が再実行されます。Flowは、ロールバックを介して発生するすべてのDBトランザクションをクリアしてクリーンに再実行できるようにしますが、サードパーティコンポーネントとの他のやり取りは、べき等であるか、複数回の呼び出しを処理できる必要があります。</p>
+</li>
+<li>
+<p><code>@Suspendable</code>アノテーションは、非常に注意深く使用なければなりません。<code>@Suspendable</code> ではない関数から、<code>@Suspendable</code>な関数を呼ぶことはできません。（逆は問題はありません。<code>@Suspendable</code> な関数からデータベース操作などの<code>@Suspendable</code>ではない関数を呼び出すことは可能です。）
+バイトコードのスキャン/再読み込みは、かなり時間がかかります。サスペンド操作は安価ではありません。
+バイトコードインストゥルメンテーション（byte code instrumentation）がうまくできないコードを書いてしまう事があります。（例えば、Kotlinの?.map{}操作内で<code>@Suspendable</code>関数を使用する等）この場合、再生成されるバイトコードが無効化され、JVMが実行時にあきらめる可能性があります。これは<a href="(https://youtrack.jetbrains.com/issue/KT-19251)">Kotlinの既知の問題</a>であり、この問題が発生した場合、以下のようなコンパイルオプションを指定することで改善できます。
+<br><br><br></p>
+</li>
 </ul>
-
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-groovy" data-lang="groovy"><span style="color:#000">compileKotlin</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+     <span style="color:#000">kotlinOptions</span> <span style="color:#ce5c00;font-weight:bold">{</span> 
+          <span style="color:#000">freeCompilerArgs</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#ce5c00;font-weight:bold">[</span><span style="color:#4e9a06">&#34;-Xnormalize-constructor-calls=enable&#34;</span><span style="color:#ce5c00;font-weight:bold">]</span>
+     <span style="color:#ce5c00;font-weight:bold">}</span>
+<span style="color:#ce5c00;font-weight:bold">}</span>
+</code></pre></div>
 	
 		<style>
   .feedback--answer {
@@ -814,7 +893,7 @@ R3社から、Corda4.6がもうすぐリリースされます。今回のリリ�
 		<br />
 	
 	
-	<div class="text-muted mt-5 pt-3 border-top"> July 11, 2021
+	<div class="text-muted mt-5 pt-3 border-top"> August 21, 2021
 </div>
 </div>
 
