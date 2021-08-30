@@ -49,7 +49,7 @@ CorDappのアップグレードとは、基本的にCorDappを新しいバージ
 
 ここでは、Kotlinでの例です：
 
-![image](/images/kotlin-sample.png)
+![image](/docs/images/developers/kotlin-sample.png)
 
 ## フローアップグレード
 
@@ -59,11 +59,11 @@ CorDappのアップグレードとは、基本的にCorDappを新しいバージ
 
 下記は、フローのバージョン番号を指定する例です：
 
-![image](/images/kotlin-sample2.png)
+![image](/docs/images/developers/kotlin-sample2.png)
 
 下記は、カウンターパーティのフローバージョンを取得する例です：
 
-![image](/images/kotlin-sample3.png)
+![image](/docs/images/developers/kotlin-sample3.png)
 
 ## Backward-compatibility（後方互換性）
 

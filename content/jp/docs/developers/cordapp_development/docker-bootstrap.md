@@ -35,7 +35,7 @@ Dockerformについてのドキュメントは[こちら](https://docs.corda.net
   - ノードに使用する公式Corda Docker Imageを宣言します
   - 外部からSSHでDockerコンテナに接続するために必要な "sshdPort "を追加します
 
-<img src="/images/docker-1.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-1.png" alt="drawing" style="width:600px;"/>
 
 ### prepareDockerNodes "タスクを実行する
 
@@ -43,11 +43,11 @@ Dockerformについてのドキュメントは[こちら](https://docs.corda.net
 
 - `docker-compose.yaml`は、`prepareDockerNodes`タスクから取得した情報で自動的に生成されます。
   
-<img src="/images/docker-2.png" alt="drawing" style="width:300px;"/>
+<img src="/docs/images/developers/docker-2.png" alt="drawing" style="width:300px;"/>
 
 以下は、`docker-compose.yaml`の内容です。Dockerのすべてのボリュームが、`build/nodes`内に生成されたフォルダに関連付けられています。
 
-<img src="/images/docker-3.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-3.png" alt="drawing" style="width:600px;"/>
 
 ### 外部データベースを追加する
 
@@ -59,11 +59,11 @@ Dockerformについてのドキュメントは[こちら](https://docs.corda.net
 
 ドキュメントに記載されている手順が完了したら、`./gradlew prepareDockerNodes`を実行します。ここでは、出力と`docker-compose.yaml` が更新されます。PostgreSQLのパラメータを設定した新しいサービスである`notary-db`があります。
 
-<img src="/images/docker-4.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-4.png" alt="drawing" style="width:600px;"/>
 
 また、Dockerformは上記のDocker Composeで使用されるPostgreSQLのDockerfileと、データベースを初期化するスクリプトも作成します。
 
-<img src="/images/docker-5.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-5.png" alt="drawing" style="width:600px;"/>
 
 
-<img src="/images/docker-6.png" alt="drawing" style="width:800px;"/>
+<img src="/docs/images/developers/docker-6.png" alt="drawing" style="width:800px;"/>

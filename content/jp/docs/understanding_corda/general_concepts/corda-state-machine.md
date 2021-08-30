@@ -41,7 +41,7 @@ Quasarにおけるもっとも重要な概念はfiberです。fiberとは、プ�
 
 ユーザーは，中断可能であるすべての関数に対して`@Suspendable`というアノテーションをつける必要があります。起動時とJITコンパイルの直前に、Quasarは，`@Suspendable`メソッドのバイトコードを書き換えます。具体的には、`throws SuspendExecution`を関数定義に追加し,全ての`catch`ブロックに、`SuspendExecution`を再スローするコードを追加します。この例外をユーザーコードでキャッチさせないためです。
 
-![image](/images/corda-state-machine-1.png)
+![image](/docs/images/understanding_corda/corda-state-machine-1.png)
 
 fiberを中断するために、プログラムはQuasarの特定の関数（例えば?`parkAndSerialize`）を呼び出します。この関数は`SuspendExecution`を投げ、投げられたこの例外はすべてのユーザーコードを通過し、Quasarによってキャッチされます。Quasarは、コールスタックを抽出し、シリアライズして保存します。バイトコードインストゥルメンテーション（byte code instrumentation）は、コールスタック上の関数が使用する変数、ローカルオブジェクト、スレッドが使用しているローカルストレージ等の値を全て確保でき、fiberはこのひと固まりのスレッドを再構成することができます。また、これらすべてをメモリに保存した後、CPUは現在の実行スレッドを解放するので、CPUは他の何かを実行するためにこの実行スレッドを利用可能になります。
 
@@ -57,7 +57,7 @@ CordaのFlowはQuasarをラップし、それを使用して、CorDappのflow lo
 
 まず、すべてのフローはPending状態から始まります。次にrunningに移行します。最も簡単なケースでは、最終的にコードの最後に到達してsuccessに移行し、結果が返されます。コード途中で指定され、保存されていたCheckPointは全て消去されます。
 
-![image](/images/corda-state-machine-2.png)
+![image](/docs/images/understanding_corda/corda-state-machine-2.png)
 
 エラーが発生した場合はErroedに移行し、`FlowHospital`が管理することになります。`FlowHospital`では3つの可能性があります。
 
@@ -73,7 +73,7 @@ Flowのライフサイクルを考えるとき、Cordaノードを「ユーザ�
 
 典型的なフローはあるスレッドで実行が開始され、ネットワーク上の他のノードに送付され、帰ってきたレスポンスを受けて再開するという流れをたどります。この流れの詳細を確認していきましょう。
 
-![image](/images/corda-state-machine-3.png)
+![image]/docs/images/understanding_corda/corda-state-machine-3.png)
 
 
 ## 1. Flowの開始
