@@ -29,7 +29,7 @@
 <meta itemprop="description" content="Summary of Corda state machine
 "><meta itemprop="datePublished" content="2021-08-21T19:37:43+09:00" />
 <meta itemprop="dateModified" content="2021-08-21T19:37:43+09:00" />
-<meta itemprop="wordCount" content="110">
+<meta itemprop="wordCount" content="111">
 <meta itemprop="keywords" content="state machine,cordapp," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Corda State Machine 概要"/>
 <meta name="twitter:description" content="Summary of Corda state machine
@@ -112,7 +112,7 @@
   aria-label=""
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.3d0f1771ab3cea14ea9515964b28b090.json"
+  data-offline-search-index-json-src="/offline-search-index.6fca127efea2396a2a5eee9751c65ce2.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -142,7 +142,7 @@
   aria-label=""
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.3d0f1771ab3cea14ea9515964b28b090.json"
+  data-offline-search-index-json-src="/offline-search-index.6fca127efea2396a2a5eee9751c65ce2.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -743,7 +743,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 <p>Quasarにおけるもっとも重要な概念はfiberです。fiberとは、プログラムコードにおけるスレッドのようなものですが、fiberは自らを一時停止できます。その時点で、その計算状態を保存することができます。保存された状態を元に戻し、そこから再び計算を始めることができます。</p>
 <p>さて、この機能を実現する仕組みをまずは学びましょう。</p>
 <p>ユーザーは，中断可能であるすべての関数に対して<code>@Suspendable</code>というアノテーションをつける必要があります。起動時とJITコンパイルの直前に、Quasarは，<code>@Suspendable</code>メソッドのバイトコードを書き換えます。具体的には、<code>throws SuspendExecution</code>を関数定義に追加し,全ての<code>catch</code>ブロックに、<code>SuspendExecution</code>を再スローするコードを追加します。この例外をユーザーコードでキャッチさせないためです。</p>
-<p><img src="/images/corda-state-machine-1.png" alt="image"></p>
+<p><img src="/docs/images/understanding_corda/corda-state-machine-1.png" alt="image"></p>
 <p>fiberを中断するために、プログラムはQuasarの特定の関数（例えば?<code>parkAndSerialize</code>）を呼び出します。この関数は<code>SuspendExecution</code>を投げ、投げられたこの例外はすべてのユーザーコードを通過し、Quasarによってキャッチされます。Quasarは、コールスタックを抽出し、シリアライズして保存します。バイトコードインストゥルメンテーション（byte code instrumentation）は、コールスタック上の関数が使用する変数、ローカルオブジェクト、スレッドが使用しているローカルストレージ等の値を全て確保でき、fiberはこのひと固まりのスレッドを再構成することができます。また、これらすべてをメモリに保存した後、CPUは現在の実行スレッドを解放するので、CPUは他の何かを実行するためにこの実行スレッドを利用可能になります。</p>
 <p>ファイバーを復元すると、コールスタックが新しいスレッドで再作成され、すべての値が記録されたとおりに関数に渡され、スレッドのローカルストレージが復元され、停止したところから実行が続行されます。</p>
 <p>これを機能させるには、中断するスタック内のすべての関数に<code>@Suspendable</code>アノテーション付けて、クエーサーがそれらを計測できるようにすることが重要です。そうしないと、例外がキャッチされるか、パラメーターが正しくキャプチャされず、fiberが正しく中断されません。これは、CorDappsのエラーの一般的な原因（transaction context missingエラーなど）であり、スタックのどの関数に注釈が欠けているかを把握するのは非常に難しい場合があります。</p>
@@ -751,7 +751,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 <h1 id="flowの状態遷移">Flowの状態遷移</h1>
 <p>さて、FlowがCheckPointで中止＆再開できる仕組みを見てきたところで、次にFlowの状態遷移についてみていきましょう。FlowはQuasarによる一時停止機能がある事を前提に、次のような状態遷移を想定しています。</p>
 <p>まず、すべてのフローはPending状態から始まります。次にrunningに移行します。最も簡単なケースでは、最終的にコードの最後に到達してsuccessに移行し、結果が返されます。コード途中で指定され、保存されていたCheckPointは全て消去されます。</p>
-<p><img src="/images/corda-state-machine-2.png" alt="image"></p>
+<p><img src="/docs/images/understanding_corda/corda-state-machine-2.png" alt="image"></p>
 <p>エラーが発生した場合はErroedに移行し、<code>FlowHospital</code>が管理することになります。<code>FlowHospital</code>では3つの可能性があります。</p>
 <p>一時的なエラーの場合、Pendingに戻って再実行されます。この時、Flowは最初から実行されるのではなく、記録された最後のチェックポイントから再試行されます。
 エラーが致命的である場合、フローは失敗Failedとして終了します。エラーが呼び出し元に返され、すべてのCheckPointが削除されます。
@@ -761,7 +761,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 <h1 id="flowのライフサイクル">Flowのライフサイクル</h1>
 <p>Flowのライフサイクルを考えるとき、Cordaノードを「ユーザースペース」と「カーネルスペース」に分けて考えると便利です。「ユーザースペース」は、ユーザーが提供するFlow logicを実行し、「カーネルスペース」は、ユーザーの提供するコードを実行するFlowフレームワークです。</p>
 <p>典型的なフローはあるスレッドで実行が開始され、ネットワーク上の他のノードに送付され、帰ってきたレスポンスを受けて再開するという流れをたどります。この流れの詳細を確認していきましょう。</p>
-<p><img src="/images/corda-state-machine-3.png" alt="image"></p>
+<p>![image]/docs/images/understanding_corda/corda-state-machine-3.png)</p>
 <h2 id="1-flowの開始">1. Flowの開始</h2>
 <p>RPCを介してFlowがキックされると、<code>StartFlow</code>がカーネルスペースで呼び出されます。これにより、Flowを開始するイベントがスケジュールされます（RPC処理とメッセージのデシリアライズ処理は別のスレッドプールで行われることに注意してください）CPUの実行スレッドが使用可能になるとすぐに、メッセージの処理を開始し、FlowはPendingからRunningに移行します。この作業には以下の作業も含まれます。</p>
 <p>スレッドを取得する。

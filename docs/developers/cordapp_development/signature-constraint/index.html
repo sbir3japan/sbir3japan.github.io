@@ -160,7 +160,7 @@ CorDappのアップグレードとは、基本的にCorDappを新しいバージ
   aria-label=""
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.3d0f1771ab3cea14ea9515964b28b090.json"
+  data-offline-search-index-json-src="/offline-search-index.6fca127efea2396a2a5eee9751c65ce2.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -190,7 +190,7 @@ CorDappのアップグレードとは、基本的にCorDappを新しいバージ
   aria-label=""
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.3d0f1771ab3cea14ea9515964b28b090.json"
+  data-offline-search-index-json-src="/offline-search-index.6fca127efea2396a2a5eee9751c65ce2.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -792,14 +792,14 @@ CorDappのアップグレードとは、基本的にCorDappを新しいバージ
 <p>output stateを追加する際には、<code>TransactionBuilder</code>が適切な制約とattachmentを選択してくれます。そのため、ほとんどの場合、コード内で使用する制約の種類を指定することを気にする必要はありません。</p>
 <p>CorDappのアップグレードとは、基本的にCorDappを新しいバージョンのJARファイルで置き換えることを意味します。また、新しいバージョンがstateの既存の状態と互換性があるかどうかを確認するために、様々なことに注意する必要があります。例えば、あるstateに新しいフィールドが導入された場合、そのフィールドを<code>Nullable</code>にすることで、古いバージョンのアプリで生成されたstateをデシリアライズする際に問題が発生しないようにします。</p>
 <p>ここでは、Kotlinでの例です：</p>
-<p><img src="/images/kotlin-sample.png" alt="image"></p>
+<p><img src="/docs/images/developers/kotlin-sample.png" alt="image"></p>
 <h2 id="フローアップグレード">フローアップグレード</h2>
 <p>フローのアップグレードでは、異なるバージョンで動作しているノード間のトランザクションをどのように処理するかは、CorDapp 開発者がコントロールします。</p>
 <p>フローのアップグレードの際に考慮すべき主な点は、フローのバージョニングです。@<code>InitiatingFlow</code>アノテーションには、デフォルトで1となるバージョンプロパティが用意されています。このプロパティが重要なのは、相手がどのバージョンのフローを実行しているかを判断するのに役立ち、それに応じて正しいビジネスロジックが実行されるようにフローを実装できるからです。</p>
 <p>下記は、フローのバージョン番号を指定する例です：</p>
-<p><img src="/images/kotlin-sample2.png" alt="image"></p>
+<p><img src="/docs/images/developers/kotlin-sample2.png" alt="image"></p>
 <p>下記は、カウンターパーティのフローバージョンを取得する例です：</p>
-<p><img src="/images/kotlin-sample3.png" alt="image"></p>
+<p><img src="/docs/images/developers/kotlin-sample3.png" alt="image"></p>
 <h2 id="backward-compatibility後方互換性">Backward-compatibility（後方互換性）</h2>
 <p>CorDappの構造は、2つの独立したモジュールに分割することが推奨されています。</p>
 <ul>

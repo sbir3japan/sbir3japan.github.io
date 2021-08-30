@@ -51,15 +51,15 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;/images/docker-1.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-1.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
 &lt;h3 id=&#34;preparedockernodes-タスクを実行する&#34;&gt;prepareDockerNodes &amp;ldquo;タスクを実行する&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;./gradlew prepareDockerNodes&lt;/code&gt;を実行すると、&lt;code&gt;/build/nodes&lt;/code&gt;フォルダ内に以下のようなアウトプットが作成されます。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;docker-compose.yaml&lt;/code&gt;は、&lt;code&gt;prepareDockerNodes&lt;/code&gt;タスクから取得した情報で自動的に生成されます。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;/images/docker-2.png&#34; alt=&#34;drawing&#34; style=&#34;width:300px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-2.png&#34; alt=&#34;drawing&#34; style=&#34;width:300px;&#34;/&gt;
 &lt;p&gt;以下は、&lt;code&gt;docker-compose.yaml&lt;/code&gt;の内容です。Dockerのすべてのボリュームが、&lt;code&gt;build/nodes&lt;/code&gt;内に生成されたフォルダに関連付けられています。&lt;/p&gt;
-&lt;img src=&#34;/images/docker-3.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-3.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
 &lt;h3 id=&#34;外部データベースを追加する&#34;&gt;外部データベースを追加する&lt;/h3&gt;
 &lt;p&gt;上記の例ではH2データベースを使用していますが、他のデータベースを追加することも可能です。DockerformがDockerコンテナの作成を行います。PostgreSQLを使った例を見てみましょう。&lt;/p&gt;
 
@@ -70,10 +70,10 @@
 &lt;/div&gt;
 
 &lt;p&gt;ドキュメントに記載されている手順が完了したら、&lt;code&gt;./gradlew prepareDockerNodes&lt;/code&gt;を実行します。ここでは、出力と&lt;code&gt;docker-compose.yaml&lt;/code&gt; が更新されます。PostgreSQLのパラメータを設定した新しいサービスである&lt;code&gt;notary-db&lt;/code&gt;があります。&lt;/p&gt;
-&lt;img src=&#34;/images/docker-4.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-4.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
 &lt;p&gt;また、Dockerformは上記のDocker Composeで使用されるPostgreSQLのDockerfileと、データベースを初期化するスクリプトも作成します。&lt;/p&gt;
-&lt;img src=&#34;/images/docker-5.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
-&lt;img src=&#34;/images/docker-6.png&#34; alt=&#34;drawing&#34; style=&#34;width:800px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-5.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-6.png&#34; alt=&#34;drawing&#34; style=&#34;width:800px;&#34;/&gt;
       </description>
     </item>
     

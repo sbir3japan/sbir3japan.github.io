@@ -112,7 +112,7 @@
   aria-label=""
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.3d0f1771ab3cea14ea9515964b28b090.json"
+  data-offline-search-index-json-src="/offline-search-index.6fca127efea2396a2a5eee9751c65ce2.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -142,7 +142,7 @@
   aria-label=""
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.3d0f1771ab3cea14ea9515964b28b090.json"
+  data-offline-search-index-json-src="/offline-search-index.6fca127efea2396a2a5eee9751c65ce2.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -742,15 +742,15 @@
 </ul>
 </li>
 </ul>
-<img src="/images/docker-1.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-1.png" alt="drawing" style="width:600px;"/>
 <h3 id="preparedockernodes-タスクを実行する">prepareDockerNodes &ldquo;タスクを実行する</h3>
 <p><code>./gradlew prepareDockerNodes</code>を実行すると、<code>/build/nodes</code>フォルダ内に以下のようなアウトプットが作成されます。</p>
 <ul>
 <li><code>docker-compose.yaml</code>は、<code>prepareDockerNodes</code>タスクから取得した情報で自動的に生成されます。</li>
 </ul>
-<img src="/images/docker-2.png" alt="drawing" style="width:300px;"/>
+<img src="/docs/images/developers/docker-2.png" alt="drawing" style="width:300px;"/>
 <p>以下は、<code>docker-compose.yaml</code>の内容です。Dockerのすべてのボリュームが、<code>build/nodes</code>内に生成されたフォルダに関連付けられています。</p>
-<img src="/images/docker-3.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-3.png" alt="drawing" style="width:600px;"/>
 <h3 id="外部データベースを追加する">外部データベースを追加する</h3>
 <p>上記の例ではH2データベースを使用していますが、他のデータベースを追加することも可能です。DockerformがDockerコンテナの作成を行います。PostgreSQLを使った例を見てみましょう。</p>
 
@@ -761,10 +761,10 @@
 </div>
 
 <p>ドキュメントに記載されている手順が完了したら、<code>./gradlew prepareDockerNodes</code>を実行します。ここでは、出力と<code>docker-compose.yaml</code> が更新されます。PostgreSQLのパラメータを設定した新しいサービスである<code>notary-db</code>があります。</p>
-<img src="/images/docker-4.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-4.png" alt="drawing" style="width:600px;"/>
 <p>また、Dockerformは上記のDocker Composeで使用されるPostgreSQLのDockerfileと、データベースを初期化するスクリプトも作成します。</p>
-<img src="/images/docker-5.png" alt="drawing" style="width:600px;"/>
-<img src="/images/docker-6.png" alt="drawing" style="width:800px;"/>
+<img src="/docs/images/developers/docker-5.png" alt="drawing" style="width:600px;"/>
+<img src="/docs/images/developers/docker-6.png" alt="drawing" style="width:800px;"/>
 	
 		<style>
   .feedback--answer {

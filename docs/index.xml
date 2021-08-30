@@ -48,7 +48,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 &lt;p&gt;Quasarにおけるもっとも重要な概念はfiberです。fiberとは、プログラムコードにおけるスレッドのようなものですが、fiberは自らを一時停止できます。その時点で、その計算状態を保存することができます。保存された状態を元に戻し、そこから再び計算を始めることができます。&lt;/p&gt;
 &lt;p&gt;さて、この機能を実現する仕組みをまずは学びましょう。&lt;/p&gt;
 &lt;p&gt;ユーザーは，中断可能であるすべての関数に対して&lt;code&gt;@Suspendable&lt;/code&gt;というアノテーションをつける必要があります。起動時とJITコンパイルの直前に、Quasarは，&lt;code&gt;@Suspendable&lt;/code&gt;メソッドのバイトコードを書き換えます。具体的には、&lt;code&gt;throws SuspendExecution&lt;/code&gt;を関数定義に追加し,全ての&lt;code&gt;catch&lt;/code&gt;ブロックに、&lt;code&gt;SuspendExecution&lt;/code&gt;を再スローするコードを追加します。この例外をユーザーコードでキャッチさせないためです。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-1.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/understanding_corda/corda-state-machine-1.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;p&gt;fiberを中断するために、プログラムはQuasarの特定の関数（例えば?&lt;code&gt;parkAndSerialize&lt;/code&gt;）を呼び出します。この関数は&lt;code&gt;SuspendExecution&lt;/code&gt;を投げ、投げられたこの例外はすべてのユーザーコードを通過し、Quasarによってキャッチされます。Quasarは、コールスタックを抽出し、シリアライズして保存します。バイトコードインストゥルメンテーション（byte code instrumentation）は、コールスタック上の関数が使用する変数、ローカルオブジェクト、スレッドが使用しているローカルストレージ等の値を全て確保でき、fiberはこのひと固まりのスレッドを再構成することができます。また、これらすべてをメモリに保存した後、CPUは現在の実行スレッドを解放するので、CPUは他の何かを実行するためにこの実行スレッドを利用可能になります。&lt;/p&gt;
 &lt;p&gt;ファイバーを復元すると、コールスタックが新しいスレッドで再作成され、すべての値が記録されたとおりに関数に渡され、スレッドのローカルストレージが復元され、停止したところから実行が続行されます。&lt;/p&gt;
 &lt;p&gt;これを機能させるには、中断するスタック内のすべての関数に&lt;code&gt;@Suspendable&lt;/code&gt;アノテーション付けて、クエーサーがそれらを計測できるようにすることが重要です。そうしないと、例外がキャッチされるか、パラメーターが正しくキャプチャされず、fiberが正しく中断されません。これは、CorDappsのエラーの一般的な原因（transaction context missingエラーなど）であり、スタックのどの関数に注釈が欠けているかを把握するのは非常に難しい場合があります。&lt;/p&gt;
@@ -56,7 +56,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 &lt;h1 id=&#34;flowの状態遷移&#34;&gt;Flowの状態遷移&lt;/h1&gt;
 &lt;p&gt;さて、FlowがCheckPointで中止＆再開できる仕組みを見てきたところで、次にFlowの状態遷移についてみていきましょう。FlowはQuasarによる一時停止機能がある事を前提に、次のような状態遷移を想定しています。&lt;/p&gt;
 &lt;p&gt;まず、すべてのフローはPending状態から始まります。次にrunningに移行します。最も簡単なケースでは、最終的にコードの最後に到達してsuccessに移行し、結果が返されます。コード途中で指定され、保存されていたCheckPointは全て消去されます。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/understanding_corda/corda-state-machine-2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;p&gt;エラーが発生した場合はErroedに移行し、&lt;code&gt;FlowHospital&lt;/code&gt;が管理することになります。&lt;code&gt;FlowHospital&lt;/code&gt;では3つの可能性があります。&lt;/p&gt;
 &lt;p&gt;一時的なエラーの場合、Pendingに戻って再実行されます。この時、Flowは最初から実行されるのではなく、記録された最後のチェックポイントから再試行されます。
 エラーが致命的である場合、フローは失敗Failedとして終了します。エラーが呼び出し元に返され、すべてのCheckPointが削除されます。
@@ -66,7 +66,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 &lt;h1 id=&#34;flowのライフサイクル&#34;&gt;Flowのライフサイクル&lt;/h1&gt;
 &lt;p&gt;Flowのライフサイクルを考えるとき、Cordaノードを「ユーザースペース」と「カーネルスペース」に分けて考えると便利です。「ユーザースペース」は、ユーザーが提供するFlow logicを実行し、「カーネルスペース」は、ユーザーの提供するコードを実行するFlowフレームワークです。&lt;/p&gt;
 &lt;p&gt;典型的なフローはあるスレッドで実行が開始され、ネットワーク上の他のノードに送付され、帰ってきたレスポンスを受けて再開するという流れをたどります。この流れの詳細を確認していきましょう。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;![image]/docs/images/understanding_corda/corda-state-machine-3.png)&lt;/p&gt;
 &lt;h2 id=&#34;1-flowの開始&#34;&gt;1. Flowの開始&lt;/h2&gt;
 &lt;p&gt;RPCを介してFlowがキックされると、&lt;code&gt;StartFlow&lt;/code&gt;がカーネルスペースで呼び出されます。これにより、Flowを開始するイベントがスケジュールされます（RPC処理とメッセージのデシリアライズ処理は別のスレッドプールで行われることに注意してください）CPUの実行スレッドが使用可能になるとすぐに、メッセージの処理を開始し、FlowはPendingからRunningに移行します。この作業には以下の作業も含まれます。&lt;/p&gt;
 &lt;p&gt;スレッドを取得する。
@@ -178,15 +178,15 @@ P2Pメッセージングシステムに保存されていた未処理のメッ�
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;/images/docker-1.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-1.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
 &lt;h3 id=&#34;preparedockernodes-タスクを実行する&#34;&gt;prepareDockerNodes &amp;ldquo;タスクを実行する&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;./gradlew prepareDockerNodes&lt;/code&gt;を実行すると、&lt;code&gt;/build/nodes&lt;/code&gt;フォルダ内に以下のようなアウトプットが作成されます。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;docker-compose.yaml&lt;/code&gt;は、&lt;code&gt;prepareDockerNodes&lt;/code&gt;タスクから取得した情報で自動的に生成されます。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;/images/docker-2.png&#34; alt=&#34;drawing&#34; style=&#34;width:300px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-2.png&#34; alt=&#34;drawing&#34; style=&#34;width:300px;&#34;/&gt;
 &lt;p&gt;以下は、&lt;code&gt;docker-compose.yaml&lt;/code&gt;の内容です。Dockerのすべてのボリュームが、&lt;code&gt;build/nodes&lt;/code&gt;内に生成されたフォルダに関連付けられています。&lt;/p&gt;
-&lt;img src=&#34;/images/docker-3.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-3.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
 &lt;h3 id=&#34;外部データベースを追加する&#34;&gt;外部データベースを追加する&lt;/h3&gt;
 &lt;p&gt;上記の例ではH2データベースを使用していますが、他のデータベースを追加することも可能です。DockerformがDockerコンテナの作成を行います。PostgreSQLを使った例を見てみましょう。&lt;/p&gt;
 
@@ -197,10 +197,10 @@ P2Pメッセージングシステムに保存されていた未処理のメッ�
 &lt;/div&gt;
 
 &lt;p&gt;ドキュメントに記載されている手順が完了したら、&lt;code&gt;./gradlew prepareDockerNodes&lt;/code&gt;を実行します。ここでは、出力と&lt;code&gt;docker-compose.yaml&lt;/code&gt; が更新されます。PostgreSQLのパラメータを設定した新しいサービスである&lt;code&gt;notary-db&lt;/code&gt;があります。&lt;/p&gt;
-&lt;img src=&#34;/images/docker-4.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-4.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
 &lt;p&gt;また、Dockerformは上記のDocker Composeで使用されるPostgreSQLのDockerfileと、データベースを初期化するスクリプトも作成します。&lt;/p&gt;
-&lt;img src=&#34;/images/docker-5.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
-&lt;img src=&#34;/images/docker-6.png&#34; alt=&#34;drawing&#34; style=&#34;width:800px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-5.png&#34; alt=&#34;drawing&#34; style=&#34;width:600px;&#34;/&gt;
+&lt;img src=&#34;/docs/images/developers/docker-6.png&#34; alt=&#34;drawing&#34; style=&#34;width:800px;&#34;/&gt;
       </description>
     </item>
     
@@ -241,14 +241,14 @@ P2Pメッセージングシステムに保存されていた未処理のメッ�
 &lt;p&gt;output stateを追加する際には、&lt;code&gt;TransactionBuilder&lt;/code&gt;が適切な制約とattachmentを選択してくれます。そのため、ほとんどの場合、コード内で使用する制約の種類を指定することを気にする必要はありません。&lt;/p&gt;
 &lt;p&gt;CorDappのアップグレードとは、基本的にCorDappを新しいバージョンのJARファイルで置き換えることを意味します。また、新しいバージョンがstateの既存の状態と互換性があるかどうかを確認するために、様々なことに注意する必要があります。例えば、あるstateに新しいフィールドが導入された場合、そのフィールドを&lt;code&gt;Nullable&lt;/code&gt;にすることで、古いバージョンのアプリで生成されたstateをデシリアライズする際に問題が発生しないようにします。&lt;/p&gt;
 &lt;p&gt;ここでは、Kotlinでの例です：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/developers/kotlin-sample.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;フローアップグレード&#34;&gt;フローアップグレード&lt;/h2&gt;
 &lt;p&gt;フローのアップグレードでは、異なるバージョンで動作しているノード間のトランザクションをどのように処理するかは、CorDapp 開発者がコントロールします。&lt;/p&gt;
 &lt;p&gt;フローのアップグレードの際に考慮すべき主な点は、フローのバージョニングです。@&lt;code&gt;InitiatingFlow&lt;/code&gt;アノテーションには、デフォルトで1となるバージョンプロパティが用意されています。このプロパティが重要なのは、相手がどのバージョンのフローを実行しているかを判断するのに役立ち、それに応じて正しいビジネスロジックが実行されるようにフローを実装できるからです。&lt;/p&gt;
 &lt;p&gt;下記は、フローのバージョン番号を指定する例です：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/developers/kotlin-sample2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;p&gt;下記は、カウンターパーティのフローバージョンを取得する例です：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/developers/kotlin-sample3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;backward-compatibility後方互換性&#34;&gt;Backward-compatibility（後方互換性）&lt;/h2&gt;
 &lt;p&gt;CorDappの構造は、2つの独立したモジュールに分割することが推奨されています。&lt;/p&gt;
 &lt;ul&gt;

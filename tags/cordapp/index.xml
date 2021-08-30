@@ -48,7 +48,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 &lt;p&gt;Quasarにおけるもっとも重要な概念はfiberです。fiberとは、プログラムコードにおけるスレッドのようなものですが、fiberは自らを一時停止できます。その時点で、その計算状態を保存することができます。保存された状態を元に戻し、そこから再び計算を始めることができます。&lt;/p&gt;
 &lt;p&gt;さて、この機能を実現する仕組みをまずは学びましょう。&lt;/p&gt;
 &lt;p&gt;ユーザーは，中断可能であるすべての関数に対して&lt;code&gt;@Suspendable&lt;/code&gt;というアノテーションをつける必要があります。起動時とJITコンパイルの直前に、Quasarは，&lt;code&gt;@Suspendable&lt;/code&gt;メソッドのバイトコードを書き換えます。具体的には、&lt;code&gt;throws SuspendExecution&lt;/code&gt;を関数定義に追加し,全ての&lt;code&gt;catch&lt;/code&gt;ブロックに、&lt;code&gt;SuspendExecution&lt;/code&gt;を再スローするコードを追加します。この例外をユーザーコードでキャッチさせないためです。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-1.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/understanding_corda/corda-state-machine-1.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;p&gt;fiberを中断するために、プログラムはQuasarの特定の関数（例えば?&lt;code&gt;parkAndSerialize&lt;/code&gt;）を呼び出します。この関数は&lt;code&gt;SuspendExecution&lt;/code&gt;を投げ、投げられたこの例外はすべてのユーザーコードを通過し、Quasarによってキャッチされます。Quasarは、コールスタックを抽出し、シリアライズして保存します。バイトコードインストゥルメンテーション（byte code instrumentation）は、コールスタック上の関数が使用する変数、ローカルオブジェクト、スレッドが使用しているローカルストレージ等の値を全て確保でき、fiberはこのひと固まりのスレッドを再構成することができます。また、これらすべてをメモリに保存した後、CPUは現在の実行スレッドを解放するので、CPUは他の何かを実行するためにこの実行スレッドを利用可能になります。&lt;/p&gt;
 &lt;p&gt;ファイバーを復元すると、コールスタックが新しいスレッドで再作成され、すべての値が記録されたとおりに関数に渡され、スレッドのローカルストレージが復元され、停止したところから実行が続行されます。&lt;/p&gt;
 &lt;p&gt;これを機能させるには、中断するスタック内のすべての関数に&lt;code&gt;@Suspendable&lt;/code&gt;アノテーション付けて、クエーサーがそれらを計測できるようにすることが重要です。そうしないと、例外がキャッチされるか、パラメーターが正しくキャプチャされず、fiberが正しく中断されません。これは、CorDappsのエラーの一般的な原因（transaction context missingエラーなど）であり、スタックのどの関数に注釈が欠けているかを把握するのは非常に難しい場合があります。&lt;/p&gt;
@@ -56,7 +56,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 &lt;h1 id=&#34;flowの状態遷移&#34;&gt;Flowの状態遷移&lt;/h1&gt;
 &lt;p&gt;さて、FlowがCheckPointで中止＆再開できる仕組みを見てきたところで、次にFlowの状態遷移についてみていきましょう。FlowはQuasarによる一時停止機能がある事を前提に、次のような状態遷移を想定しています。&lt;/p&gt;
 &lt;p&gt;まず、すべてのフローはPending状態から始まります。次にrunningに移行します。最も簡単なケースでは、最終的にコードの最後に到達してsuccessに移行し、結果が返されます。コード途中で指定され、保存されていたCheckPointは全て消去されます。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/understanding_corda/corda-state-machine-2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;p&gt;エラーが発生した場合はErroedに移行し、&lt;code&gt;FlowHospital&lt;/code&gt;が管理することになります。&lt;code&gt;FlowHospital&lt;/code&gt;では3つの可能性があります。&lt;/p&gt;
 &lt;p&gt;一時的なエラーの場合、Pendingに戻って再実行されます。この時、Flowは最初から実行されるのではなく、記録された最後のチェックポイントから再試行されます。
 エラーが致命的である場合、フローは失敗Failedとして終了します。エラーが呼び出し元に返され、すべてのCheckPointが削除されます。
@@ -66,7 +66,7 @@ CordaのFlowは、KotlinまたはJavaを用いて、分岐のない一連のな�
 &lt;h1 id=&#34;flowのライフサイクル&#34;&gt;Flowのライフサイクル&lt;/h1&gt;
 &lt;p&gt;Flowのライフサイクルを考えるとき、Cordaノードを「ユーザースペース」と「カーネルスペース」に分けて考えると便利です。「ユーザースペース」は、ユーザーが提供するFlow logicを実行し、「カーネルスペース」は、ユーザーの提供するコードを実行するFlowフレームワークです。&lt;/p&gt;
 &lt;p&gt;典型的なフローはあるスレッドで実行が開始され、ネットワーク上の他のノードに送付され、帰ってきたレスポンスを受けて再開するという流れをたどります。この流れの詳細を確認していきましょう。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/corda-state-machine-3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;![image]/docs/images/understanding_corda/corda-state-machine-3.png)&lt;/p&gt;
 &lt;h2 id=&#34;1-flowの開始&#34;&gt;1. Flowの開始&lt;/h2&gt;
 &lt;p&gt;RPCを介してFlowがキックされると、&lt;code&gt;StartFlow&lt;/code&gt;がカーネルスペースで呼び出されます。これにより、Flowを開始するイベントがスケジュールされます（RPC処理とメッセージのデシリアライズ処理は別のスレッドプールで行われることに注意してください）CPUの実行スレッドが使用可能になるとすぐに、メッセージの処理を開始し、FlowはPendingからRunningに移行します。この作業には以下の作業も含まれます。&lt;/p&gt;
 &lt;p&gt;スレッドを取得する。

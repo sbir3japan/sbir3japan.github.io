@@ -51,14 +51,14 @@
 &lt;p&gt;output stateを追加する際には、&lt;code&gt;TransactionBuilder&lt;/code&gt;が適切な制約とattachmentを選択してくれます。そのため、ほとんどの場合、コード内で使用する制約の種類を指定することを気にする必要はありません。&lt;/p&gt;
 &lt;p&gt;CorDappのアップグレードとは、基本的にCorDappを新しいバージョンのJARファイルで置き換えることを意味します。また、新しいバージョンがstateの既存の状態と互換性があるかどうかを確認するために、様々なことに注意する必要があります。例えば、あるstateに新しいフィールドが導入された場合、そのフィールドを&lt;code&gt;Nullable&lt;/code&gt;にすることで、古いバージョンのアプリで生成されたstateをデシリアライズする際に問題が発生しないようにします。&lt;/p&gt;
 &lt;p&gt;ここでは、Kotlinでの例です：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/developers/kotlin-sample.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;フローアップグレード&#34;&gt;フローアップグレード&lt;/h2&gt;
 &lt;p&gt;フローのアップグレードでは、異なるバージョンで動作しているノード間のトランザクションをどのように処理するかは、CorDapp 開発者がコントロールします。&lt;/p&gt;
 &lt;p&gt;フローのアップグレードの際に考慮すべき主な点は、フローのバージョニングです。@&lt;code&gt;InitiatingFlow&lt;/code&gt;アノテーションには、デフォルトで1となるバージョンプロパティが用意されています。このプロパティが重要なのは、相手がどのバージョンのフローを実行しているかを判断するのに役立ち、それに応じて正しいビジネスロジックが実行されるようにフローを実装できるからです。&lt;/p&gt;
 &lt;p&gt;下記は、フローのバージョン番号を指定する例です：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/developers/kotlin-sample2.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;p&gt;下記は、カウンターパーティのフローバージョンを取得する例です：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/kotlin-sample3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/docs/images/developers/kotlin-sample3.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;backward-compatibility後方互換性&#34;&gt;Backward-compatibility（後方互換性）&lt;/h2&gt;
 &lt;p&gt;CorDappの構造は、2つの独立したモジュールに分割することが推奨されています。&lt;/p&gt;
 &lt;ul&gt;
