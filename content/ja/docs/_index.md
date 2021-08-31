@@ -10,6 +10,5 @@ resources:
 - src: "**SBIR3-transparent*.png"
 ---
 <p>
-<img src="SBIR3-transparent.png" style="height:100px"/>
+<img src="logo-one.png" style="height:200px"/>
 </p>
-
