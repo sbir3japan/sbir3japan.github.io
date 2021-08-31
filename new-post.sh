@@ -12,7 +12,7 @@ title () {
 echo "--------------------------------------------"
 echo "Please, select the category of your article:"
 echo "--------------------------------------------"
-select d in $(find content/jp/docs/ -maxdepth 1 ! -path content/jp/docs/images ! -path content/jp/docs/ -type d)
+select d in $(find content/ja/docs/ -maxdepth 1 ! -path content/ja/docs/images ! -path content/ja/docs/ -type d)
 do  
     ls $d/*/ >/dev/null 2>&1;
     if [ $? == 0 ]
