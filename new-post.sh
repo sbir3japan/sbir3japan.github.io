@@ -2,7 +2,6 @@
 
 title () {
     echo ""
-    #echo "Please, select the title of the article (if you want to change it later, you will have to change the name of the file under $1/$2"
     echo "-------------------------------------------------------------------------------------------------------------------"
     echo "Insert the title of your article (you can always change it later, but remember to change the name of the file too):"
     echo "-------------------------------------------------------------------------------------------------------------------"
@@ -18,6 +17,7 @@ do
     ls $d/*/ >/dev/null 2>&1;
     if [ $? == 0 ]
     then
+        echo ""
         echo "------------------------------------------------"
         echo "Please, select the sub-category of your article:"
         echo "------------------------------------------------"
