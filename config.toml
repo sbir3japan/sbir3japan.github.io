@@ -1,6 +1,6 @@
 baseURL = "/"
 title = "Corda Guide"
-
+languageCode = "ja-JP"
 enableRobotsTXT = true
 
 # Hugo allows theme composition (and inheritance). The precedence is from left to right.
@@ -10,8 +10,8 @@ theme = ["docsy"]
 enableGitInfo = false
 
 # Language settings
-contentDir = "content/jp"
-defaultContentLanguage = "jp"
+contentDir = "content/ja"
+defaultContentLanguage = "ja"
 defaultContentLanguageInSubdir = true
 # Useful when translating.
 enableMissingTranslationPlaceholders = true
@@ -52,7 +52,7 @@ id = "UA-00000000-0"
 # Language configuration
 
 [languages]
-[languages.jp]
+[languages.ja]
 title = "Welcome to Corda Guide記事"
 description = ""
 languageName ="日本語"

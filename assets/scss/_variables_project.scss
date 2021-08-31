@@ -4,17 +4,27 @@ Add styles or override variables from the theme here.
 
 */
 
+.td-navbar .td-search-input {
+    border: 1px;
+}
+
+.form-control .td-search-input{
+    background: whitesmoke;
+    max-width: 90%;
+    border-radius: 1rem;
+    font-family: "Font Awesome 5 Free", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
 .td-navbar .navbar-brand .navbar-logo svg {
     display: inline-block;
     position: absolute;
-    top: 0;
+    top: 3px;
     left: 26px;
     z-index: 33;
     padding: 10px;
     height: 75px;
     background: #fff;
     border: 2px solid #EC1D24;
-    border-top: none;
 }
 
 .feedback--answer {
