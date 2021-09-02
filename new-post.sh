@@ -6,7 +6,7 @@ title () {
     echo "Insert the title of your article (you can always change it later, but remember to change the name of the file too):"
     echo "-------------------------------------------------------------------------------------------------------------------"
     read input3
-    hugo new "$1/$input3.md"
+    hugo new -k docs "$1/$input3.md"
 }
 
 echo "--------------------------------------------"

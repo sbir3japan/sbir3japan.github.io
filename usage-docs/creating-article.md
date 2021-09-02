@@ -13,7 +13,7 @@ To edit documentation `md` files in this repository, all you need to do is to:
 
 All Hugo site content is stored under the `/content` folder.
 
-The main documentation is specifically in `/content/jp`.
+The main documentation is specifically in `/content/ja`.
 
 The file and folder layout matches what you see in the URL bar of your browser.
 
@@ -29,10 +29,10 @@ There are two ways to create an article:
 From the root folder of the repository:
 
 ```shell
-hugo new docs/developers/design/new-article.md
+hugo new -k docs content/ja/docs/developers/design/new-article.md
 ```
 
-This will produce a new file in `/content/en/docs/developers/design/new-article.md`
+This will produce a new file in `/content/ja/docs/developers/design/new-article.md`
 
 ```markdown
 ---
@@ -59,24 +59,24 @@ You can use an automated script where you need to enter the `category/subcategor
 --------------------------------------------
 Please, select the category of your article:
 --------------------------------------------
-1) content/jp/docs/understanding_corda
-2) content/jp/docs/FAQ
-3) content/jp/docs/developers
-4) content/jp/docs/release_notes
+1) content/ja/docs/understanding_corda
+2) content/ja/docs/FAQ
+3) content/ja/docs/developers
+4) content/ja/docs/release_notes
 #? 3
 ------------------------------------------------
 Please, select the sub-category of your article:
 ------------------------------------------------
-1) content/jp/docs/developers/getting_started      4) content/jp/docs/developers/samples              7) content/jp/docs/developers/node_operations
-2) content/jp/docs/developers/network_operations   5) content/jp/docs/developers/performance
-3) content/jp/docs/developers/cordapp_development  6) content/jp/docs/developers/design
+1) content/ja/docs/developers/getting_started      4) content/ja/docs/developers/samples              7) content/ja/docs/developers/node_operations
+2) content/ja/docs/developers/network_operations   5) content/ja/docs/developers/performance
+3) content/ja/docs/developers/cordapp_development  6) content/ja/docs/developers/design
 #? 1
 
 -------------------------------------------------------------------------------------------------------------------
 Insert the title of your article (you can always change it later, but remember to change the name of the file too):
 -------------------------------------------------------------------------------------------------------------------
 this-is-a-test
-content/jp/docs/developers/getting_started/this-is-a-test.md create
+content/ja/docs/developers/getting_started/this-is-a-test.md create
 ```
 
 ## Everything is Markdown

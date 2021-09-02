@@ -34,4 +34,4 @@ You will need:
 * Download [hugo](https://github.com/gohugoio/hugo/releases) and [npm](https://nodejs.org/en/download/)  
 * clone this repo
 * `cd` into the root of the repo and run `./build.sh`
-* edit the markdown in `content/jp`
+* edit the markdown in `content/ja`
