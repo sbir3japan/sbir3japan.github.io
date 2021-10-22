@@ -17,6 +17,74 @@
     
     <item>
       <title>Docs: Corda Open Sourceの商用環境への利用</title>
+      <link>/docs/corda-4/faq/business/corda-open-source/</link>
+      <pubDate>Sun, 11 Jul 2021 17:35:31 +0900</pubDate>
+      
+      <guid>/docs/corda-4/faq/business/corda-open-source/</guid>
+      <description>
+        
+        
+        &lt;h3 id=&#34;question&#34;&gt;Question&lt;/h3&gt;
+&lt;p&gt;Corda Open Sourceを商用環境に使うことは可能でしょうか？ sadasdsa&lt;/p&gt;
+&lt;h3 id=&#34;answer&#34;&gt;Answer&lt;/h3&gt;
+&lt;p&gt;いいえ。&lt;/p&gt;
+&lt;p&gt;Corda Enterpriseは商用版であり、Corda Open Sourceは公式製品サポートのつかないトライアル版です。&lt;/p&gt;
+&lt;p&gt;Corda Open Sourceは誰でも無料でGithubから入手して、自由に利用することができますが、オープンソースソフトウェアなので、SBI R3 JapanまたはR3社の公式サポートを受けることができません&lt;/p&gt;
+&lt;p&gt;商用利用する際のリスクは一般的に以下です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;障害発生時に公式製品サポートを利用することができないので、復旧に時間とコストがかかる、あるいは原因究明に至らない可能性がある&lt;/li&gt;
+&lt;li&gt;アプリケーションのエンドユーザーがセキュリティー上の懸念を示す可能性がある&lt;/li&gt;
+&lt;li&gt;サービスのリリース前判定（社内決済、社内セキュリティー・チェックリストのクリア）を通らない可能性がある&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Corda Enterpriseを使うことで&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;公式の日本語製品サポート&lt;/li&gt;
+&lt;li&gt;迅速なパッチ提供&lt;/li&gt;
+&lt;li&gt;パフォーマンス向上（トランザクションの並行処理機能など）&lt;/li&gt;
+&lt;li&gt;Corda Firewall&lt;/li&gt;
+&lt;li&gt;高可用性構成&lt;/li&gt;
+&lt;li&gt;が利用可能になります。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Corda Open Sourceの商用環境への利用</title>
+      <link>/docs/corda-5/faq/business/corda-open-source/</link>
+      <pubDate>Sun, 11 Jul 2021 17:35:31 +0900</pubDate>
+      
+      <guid>/docs/corda-5/faq/business/corda-open-source/</guid>
+      <description>
+        
+        
+        &lt;h3 id=&#34;question&#34;&gt;Question&lt;/h3&gt;
+&lt;p&gt;Corda Open Sourceを商用環境に使うことは可能でしょうか？ sadasdsa&lt;/p&gt;
+&lt;h3 id=&#34;answer&#34;&gt;Answer&lt;/h3&gt;
+&lt;p&gt;いいえ。&lt;/p&gt;
+&lt;p&gt;Corda Enterpriseは商用版であり、Corda Open Sourceは公式製品サポートのつかないトライアル版です。&lt;/p&gt;
+&lt;p&gt;Corda Open Sourceは誰でも無料でGithubから入手して、自由に利用することができますが、オープンソースソフトウェアなので、SBI R3 JapanまたはR3社の公式サポートを受けることができません&lt;/p&gt;
+&lt;p&gt;商用利用する際のリスクは一般的に以下です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;障害発生時に公式製品サポートを利用することができないので、復旧に時間とコストがかかる、あるいは原因究明に至らない可能性がある&lt;/li&gt;
+&lt;li&gt;アプリケーションのエンドユーザーがセキュリティー上の懸念を示す可能性がある&lt;/li&gt;
+&lt;li&gt;サービスのリリース前判定（社内決済、社内セキュリティー・チェックリストのクリア）を通らない可能性がある&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Corda Enterpriseを使うことで&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;公式の日本語製品サポート&lt;/li&gt;
+&lt;li&gt;迅速なパッチ提供&lt;/li&gt;
+&lt;li&gt;パフォーマンス向上（トランザクションの並行処理機能など）&lt;/li&gt;
+&lt;li&gt;Corda Firewall&lt;/li&gt;
+&lt;li&gt;高可用性構成&lt;/li&gt;
+&lt;li&gt;が利用可能になります。&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Corda Open Sourceの商用環境への利用</title>
       <link>/docs/faq/business/corda-open-source/</link>
       <pubDate>Sun, 11 Jul 2021 17:35:31 +0900</pubDate>
       

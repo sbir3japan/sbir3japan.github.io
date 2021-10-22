@@ -5,26 +5,74 @@
     <loc>/docs/understanding_corda/general_concepts/</loc>
     <lastmod>2021-08-21T19:37:43+09:00</lastmod>
   </url><url>
+    <loc>/docs/corda-4/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-4/developers/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/developers/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
     <loc>/docs/developers/</loc>
     <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-4/faq/</loc>
+    <lastmod>2021-07-11T17:37:38+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/faq/</loc>
+    <lastmod>2021-07-11T17:37:38+09:00</lastmod>
   </url><url>
     <loc>/docs/faq/</loc>
     <lastmod>2021-07-11T17:37:38+09:00</lastmod>
   </url><url>
+    <loc>/docs/corda-4/developers/network_operations/</loc>
+  </url><url>
+    <loc>/docs/corda-5/developers/network_operations/</loc>
+  </url><url>
     <loc>/docs/developers/network_operations/</loc>
   </url><url>
+    <loc>/docs/corda-4/developers/node_operations/</loc>
+  </url><url>
+    <loc>/docs/corda-5/developers/node_operations/</loc>
+  </url><url>
     <loc>/docs/developers/node_operations/</loc>
+  </url><url>
+    <loc>/docs/corda-4/developers/performance/</loc>
+  </url><url>
+    <loc>/docs/corda-5/developers/performance/</loc>
   </url><url>
     <loc>/docs/developers/performance/</loc>
   </url><url>
     <loc>/docs/release_notes/</loc>
   </url><url>
+    <loc>/docs/corda-4/developers/samples/</loc>
+  </url><url>
+    <loc>/docs/corda-5/developers/samples/</loc>
+  </url><url>
     <loc>/docs/developers/samples/</loc>
+  </url><url>
+    <loc>/docs/corda-4/developers/cordapp_development/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/developers/cordapp_development/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
   </url><url>
     <loc>/docs/developers/cordapp_development/</loc>
     <lastmod>2021-07-29T11:30:24+09:00</lastmod>
   </url><url>
+    <loc>/docs/corda-4/developers/design/</loc>
+  </url><url>
+    <loc>/docs/corda-5/developers/design/</loc>
+  </url><url>
     <loc>/docs/developers/design/</loc>
+  </url><url>
+    <loc>/docs/corda-4/developers/getting_started/</loc>
+  </url><url>
+    <loc>/docs/corda-5/developers/getting_started/</loc>
   </url><url>
     <loc>/docs/developers/getting_started/</loc>
   </url><url>
@@ -55,10 +103,22 @@
     <loc>/tags/docker/</loc>
     <lastmod>2021-07-29T11:30:24+09:00</lastmod>
   </url><url>
+    <loc>/docs/corda-4/developers/cordapp_development/docker-bootstrap/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/developers/cordapp_development/docker-bootstrap/</loc>
+    <lastmod>2021-07-29T11:30:24+09:00</lastmod>
+  </url><url>
     <loc>/docs/developers/cordapp_development/docker-bootstrap/</loc>
     <lastmod>2021-07-29T11:30:24+09:00</lastmod>
   </url><url>
     <loc>/tags/security/</loc>
+    <lastmod>2021-07-28T17:02:56+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-4/developers/cordapp_development/signature-constraint/</loc>
+    <lastmod>2021-07-28T17:02:56+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/developers/cordapp_development/signature-constraint/</loc>
     <lastmod>2021-07-28T17:02:56+09:00</lastmod>
   </url><url>
     <loc>/docs/developers/cordapp_development/signature-constraint/</loc>
@@ -70,13 +130,37 @@
     <loc>/tags/privacy/</loc>
     <lastmod>2021-07-11T17:37:38+09:00</lastmod>
   </url><url>
+    <loc>/docs/corda-4/faq/technology/</loc>
+    <lastmod>2021-07-11T17:37:38+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/faq/technology/</loc>
+    <lastmod>2021-07-11T17:37:38+09:00</lastmod>
+  </url><url>
     <loc>/docs/faq/technology/</loc>
+    <lastmod>2021-07-11T17:37:38+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-4/faq/technology/privacy/</loc>
+    <lastmod>2021-07-11T17:37:38+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/faq/technology/privacy/</loc>
     <lastmod>2021-07-11T17:37:38+09:00</lastmod>
   </url><url>
     <loc>/docs/faq/technology/privacy/</loc>
     <lastmod>2021-07-11T17:37:38+09:00</lastmod>
   </url><url>
+    <loc>/docs/corda-4/faq/business/</loc>
+    <lastmod>2021-07-11T17:35:31+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/faq/business/</loc>
+    <lastmod>2021-07-11T17:35:31+09:00</lastmod>
+  </url><url>
     <loc>/docs/faq/business/</loc>
+    <lastmod>2021-07-11T17:35:31+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-4/faq/business/corda-open-source/</loc>
+    <lastmod>2021-07-11T17:35:31+09:00</lastmod>
+  </url><url>
+    <loc>/docs/corda-5/faq/business/corda-open-source/</loc>
     <lastmod>2021-07-11T17:35:31+09:00</lastmod>
   </url><url>
     <loc>/docs/faq/business/corda-open-source/</loc>

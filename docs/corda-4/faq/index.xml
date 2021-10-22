@@ -1,0 +1,45 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome to Corda Guide記事 – FAQ</title>
+    <link>/docs/corda-4/faq/</link>
+    <description>Recent content in FAQ on Welcome to Corda Guide記事</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Sun, 11 Jul 2021 17:37:38 +0900</lastBuildDate>
+    
+	  <atom:link href="/docs/corda-4/faq/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: Technology</title>
+      <link>/docs/corda-4/faq/technology/</link>
+      <pubDate>Sun, 11 Jul 2021 17:37:38 +0900</pubDate>
+      
+      <guid>/docs/corda-4/faq/technology/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Business</title>
+      <link>/docs/corda-4/faq/business/</link>
+      <pubDate>Sun, 11 Jul 2021 17:35:31 +0900</pubDate>
+      
+      <guid>/docs/corda-4/faq/business/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
