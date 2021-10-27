@@ -96,8 +96,8 @@ category = "categories"
 project = "projects"
 
 [params]
-#copyright = "The Docsy Authors"
-#privacy_policy = "https://policies.google.com/privacy"
+copyright = "SBI R3 Japan"
+privacy_policy = "https://sbir3japan.co.jp/privacy-policy/"
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
