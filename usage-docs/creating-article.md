@@ -17,15 +17,25 @@ The main documentation is specifically in `/content/ja`.
 
 The file and folder layout matches what you see in the URL bar of your browser.
 
-## Creating an article
+## How to create an article?
 
+### 1. Fork the repository
+Fork the repository into your personal github account.
+
+### 2. Create a new branch
+- Pull the repository from your personal github account into your computer
+- Create a new branch `git checkout -b new-article-title`
+
+Now you can start working in your separate branch.
+
+### 2. Write the article
 There are two ways to create an article:
 
-1. copy another article
+1. copy another article and update the header metadata and content
 2. use Hugo
 3. use the `new-post.sh` script (preferred)
 
-### Use Hugo
+### 2a. (optional) Create the article use vanilla Hugo command line
 From the root folder of the repository:
 
 ```shell
@@ -51,7 +61,7 @@ Update the `tags` and `description` with the ones of your choice.
 
 You are free to change also the title even after the file has been generated (remember to also change the `linkTitle`). 
 
-### Use the new-post.sh script (preferred)
+### 2b. (recommended) Use the new-post.sh script
 You can use an automated script where you need to enter the `category/subcategory/title` and it will generate the article automatically.
 
 ```bash
@@ -78,6 +88,12 @@ Insert the title of your article (you can always change it later, but remember t
 this-is-a-test
 content/ja/docs/developers/getting_started/this-is-a-test.md create
 ```
+### 3. Commit, push and make a pull request
+- `git add content/ja/path-of-your-article/your-article.md`
+- `git commit -m "New article added"`
+- `git push origin your-branch`
+
+Once the code is pushed in your personal github fork, you can make a new pull request against the main branch of the original repository.
 
 ## Everything is Markdown
 
