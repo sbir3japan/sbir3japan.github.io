@@ -4,50 +4,56 @@ Add styles or override variables from the theme here.
 
 */
 
-.td-navbar .td-search-input {
-    border: 1px;
-}
+// .td-navbar .td-search-input {
+//     border: 5px;
+// }
 
-.form-control .td-search-input{
-    background: whitesmoke;
-    max-width: 90%;
-    border-radius: 1rem;
-    font-family: "Font Awesome 5 Free", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
+// .form-control .td-search-input{
+//     background: red;
+//     max-width: 90%;
+//     border-radius: 1rem;
+//     font-family: "Font Awesome 5 Free", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+// }
 
-.td-navbar .navbar-brand .navbar-logo svg {
-    display: inline-block;
-    position: absolute;
-    top: 3px;
-    left: 26px;
-    z-index: 33;
-    padding: 10px;
-    height: 75px;
-    background: #fff;
-    border: 2px solid #EC1D24;
-}
+// .td-navbar .navbar-brand .navbar-logo svg {
+//     display: inline-block;
+//     position: absolute;
+//     top: 3px;
+//     left: 26px;
+//     z-index: 33;
+//     padding: 10px;
+//     height: 75px;
+//     background: #fff;
+//     border: 2px solid #EC1D24;
+// }
 
-.feedback--answer {
-    border-radius: 1rem;
-    margin-bottom: 1.5rem!important;
-    color: #fff;
-    background: #797676 linear-gradient(180deg,#797676,#797676)repeat-x;
-    border-color: #797676;
-    //box-shadow: inset 0 1px rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%);
-}
+// .feedback--answer {
+//     border-radius: 1rem;
+//     margin-bottom: 1.5rem!important;
+//     color: #fff;
+//     background: #797676 linear-gradient(180deg,#797676,#797676)repeat-x;
+//     border-color: #797676;
+//     //box-shadow: inset 0 1px rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%);
+// }
 
-.td-sidebar-nav .td-sidebar-link.tree-root {
-    font-weight: 700;
-    color: #EC1D24;
-    border-bottom: 1px #EC1D24 solid;
-    margin-bottom: 1rem;
-}
+// .td-sidebar-nav .td-sidebar-link.tree-root {
+//     font-weight: 700;
+//     color: #EC1D24;
+//     border-bottom: 1px #EC1D24 solid;
+//     margin-bottom: 1rem;
+// }
 
-$primary: #EC1D24;
-$secondary: #ffffff;
-//$enable-gradients: true;
-//$enable-rounded: true;
-//$enable-shadows: true;
+// Theme colors override
+
+$primary: #20232a;
+$secondary: #EC1D24;
+$light: #f2f2f2;
+
+$warning: #ffe564;
+
+// //$enable-gradients: true;
+// //$enable-rounded: true;
+// //$enable-shadows: true;
 
 .shift {
     margin-left: 10px;
@@ -136,3 +142,9 @@ $secondary: #ffffff;
     max-width: 800px;
     margin: auto;
 }
+
+// Using system fonts instead
+$td-enable-google-fonts: false;
+
+// override the default text color
+$body-color: #333;

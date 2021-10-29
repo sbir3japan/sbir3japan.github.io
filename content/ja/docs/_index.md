@@ -10,6 +10,6 @@ menu:
 resources:
 - src: "**SBIR3-transparent*.png"
 ---
-<p>
+<!-- <p>
 <img src="logo-one.png" style="height:200px"/>
-</p>
+</p> -->

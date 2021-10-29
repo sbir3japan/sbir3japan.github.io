@@ -96,8 +96,8 @@ category = "categories"
 project = "projects"
 
 [params]
-#copyright = "The Docsy Authors"
-#privacy_policy = "https://policies.google.com/privacy"
+copyright = "SBI R3 Japan"
+privacy_policy = "https://sbir3japan.co.jp/privacy-policy/"
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
@@ -161,11 +161,11 @@ footer_about_disable = false
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
 # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
 # add "hide_feedback: true" to the page's front matter.
-[params.ui.feedback]
-enable = true
+#[params.ui.feedback]
+#enable = true
 # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
-yes = 'Glad to hear it! Please <a href="https://github.com/sbir3japan/sbir3japan.github.io/issues/new">tell us how we can improve</a>.'
-no = 'Sorry to hear that. Please <a href="https://github.com/sbir3japan/sbir3japan.github.io/issues/new">tell us how we can improve</a>.'
+#yes = 'Glad to hear it! Please <a href="https://github.com/sbir3japan/sbir3japan.github.io/issues/new">tell us how we can improve</a>.'
+#no = 'Sorry to hear that. Please <a href="https://github.com/sbir3japan/sbir3japan.github.io/issues/new">tell us how we can improve</a>.'
 
 # Adds a reading time to the top of each doc.
 # If you want this feature, but occasionally need to remove the Reading time from a single page, 
@@ -191,11 +191,6 @@ taxonomyPageHeader = ["tags", "categories"] # set taxonomyPageHeader = [] to hid
 	url = "https://twitter.com/R3Sbi"
 	icon = "fab fa-twitter"
         desc = "SBI R3 Japanの最新情報"
-[[params.links.user]]
-	name ="Corda Twitter"
-	url = "https://twitter.com/corda"
-	icon = "fab fa-twitter"
-        desc = "R3の最新情報をお届けします。"
 [[params.links.user]]
 	name = "Medium"
 	url = "https://medium.com/corda-japan"
